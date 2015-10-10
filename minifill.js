@@ -6,17 +6,23 @@ if (!this.Document){this.Document = this.HTMLDocument; }
 if (!window.HTMLElement) { window.HTMLElement = window.Element; }
 
 // Date.now
-if(!Date.now){ Date.now = function now() {	return new Date().getTime(); }; }
+if(!Date.now){ Date.now = function now() { return new Date().getTime(); }; }
 
 // performance.now
-if (!window.performance.now) {
-	var startTime = Date.now(), wd = this;
-	wd.performance = {};
+(function(){
+	if ("performance" in window == false) {
+		window.performance = {};
+	}
 	
-	wd.performance.now = function () {
-		return Date.now() - startTime;
-	};
-}
+	if ("now" in window.performance == false){	
+		var nowOffset = Date.now();
+		
+		window.performance.now = function now(){
+			return Date.now() - nowOffset;
+		}
+	}
+})();
+
 
 // Array.prototype.indexOf
 if (!Array.prototype.indexOf) {
@@ -25,10 +31,9 @@ if (!Array.prototype.indexOf) {
 			throw new TypeError(this + 'is not an object');
 		}
 	
-		var
-		arraylike = this instanceof String ? this.split('') : this,
-		length = Math.max(Math.min(arraylike.length, 9007199254740991), 0) || 0,
-		index = Number(arguments[1]) || 0;
+		var	arraylike = this instanceof String ? this.split('') : this,
+			length = Math.max(Math.min(arraylike.length, 9007199254740991), 0) || 0,
+			index = Number(arguments[1]) || 0;
 	
 		index = (index < 0 ? Math.max(length + index, 0) : index) - 1;
 	
@@ -46,12 +51,12 @@ if (!Array.prototype.indexOf) {
 if (!('getComputedStyle' in window)) {
 	(function(){
 		function getComputedStylePixel(element, property, fontSize) {
-			var
+			
 			// Internet Explorer sometimes struggles to read currentStyle until the element's document is accessed.
-			value = element.document && element.currentStyle[property].match(/([\d\.]+)(%|cm|em|in|mm|pc|pt|)/) || [0, 0, ''],
-			size = value[1],
-			suffix = value[2],
-			rootSize;
+			var value = element.document && element.currentStyle[property].match(/([\d\.]+)(%|cm|em|in|mm|pc|pt|)/) || [0, 0, ''],
+				size = value[1],
+				suffix = value[2],
+				rootSize;
 	
 			fontSize = !fontSize ? fontSize : /%|em/.test(suffix) && element.parentElement ? getComputedStylePixel(element.parentElement, 'fontSize', null) : 16;
 			rootSize = property == 'fontSize' ? fontSize : /width/i.test(property) ? element.clientWidth : element.clientHeight;
@@ -119,38 +124,38 @@ if (!('getComputedStyle' in window)) {
 			setShortStyleProperty(style, 'padding');
 			setShortStyleProperty(style, 'border');
 	
-			style.fontSize = Math.round(fontSize) + 'px';
-			
-			style.prototype = {
-				// constructor: CSSStyleDeclaration,
-				// <CSSStyleDeclaration>.getPropertyPriority
-				getPropertyPriority: function () {
-					throw new Error('NotSupportedError: DOM Exception 9');
-				},
-				// <CSSStyleDeclaration>.getPropertyValue
-				getPropertyValue: function (property) {
-					return this[property.replace(/-\w/g, function (match) {
-						return match[1].toUpperCase();
-					})];
-				},
-				// <CSSStyleDeclaration>.item
-				item: function (index) {
-					return this[index];
-				},
-				// <CSSStyleDeclaration>.removeProperty
-				removeProperty: function () {
-					throw new Error('NoModificationAllowedError: DOM Exception 7');
-				},
-				// <CSSStyleDeclaration>.setProperty
-				setProperty: function () {
-					throw new Error('NoModificationAllowedError: DOM Exception 7');
-				},
-				// <CSSStyleDeclaration>.getPropertyCSSValue
-				getPropertyCSSValue: function () {
-					throw new Error('NotSupportedError: DOM Exception 9');
-				}
-			};		
+			style.fontSize = Math.round(fontSize) + 'px';		
 		}
+		
+		CSSStyleDeclaration.prototype = {
+			constructor: CSSStyleDeclaration,
+			// <CSSStyleDeclaration>.getPropertyPriority
+			getPropertyPriority: function () {
+				throw new Error('NotSupportedError: DOM Exception 9');
+			},
+			// <CSSStyleDeclaration>.getPropertyValue
+			getPropertyValue: function (property) {
+				return this[property.replace(/-\w/g, function (match) {
+					return match[1].toUpperCase();
+				})];
+			},
+			// <CSSStyleDeclaration>.item
+			item: function (index) {
+				return this[index];
+			},
+			// <CSSStyleDeclaration>.removeProperty
+			removeProperty: function () {
+				throw new Error('NoModificationAllowedError: DOM Exception 7');
+			},
+			// <CSSStyleDeclaration>.setProperty
+			setProperty: function () {
+				throw new Error('NoModificationAllowedError: DOM Exception 7');
+			},
+			// <CSSStyleDeclaration>.getPropertyCSSValue
+			getPropertyCSSValue: function () {
+				throw new Error('NotSupportedError: DOM Exception 9');
+			}
+		};		
 	
 		// <Global>.getComputedStyle
 		window.getComputedStyle = function getComputedStyle(element) {
