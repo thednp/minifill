@@ -10,9 +10,7 @@ if(!Date.now){ Date.now = function now() { return new Date().getTime(); }; }
 
 // performance.now
 (function(){
-	if ("performance" in window == false) {
-		window.performance = {};
-	}
+	if ("performance" in window == false) {	window.performance = {}; }
 	
 	if ("now" in window.performance == false){	
 		var nowOffset = Date.now();
@@ -174,13 +172,10 @@ if (!window.requestAnimationFrame) {
 			throw new TypeError(callback + 'is not a function');
 		}
 		
-		var
-		currentTime = Date.now(),
-		delay = 16 + lastTime - currentTime;
+		var	currentTime = Date.now(),
+			delay = 16 + lastTime - currentTime;
 
-		if (delay < 0) {
-			delay = 0;
-		}
+		if (delay < 0) { delay = 0;	}
 
 		lastTime = currentTime;
 
@@ -200,39 +195,57 @@ if (!window.requestAnimationFrame) {
 // Event
 if (!window.Event||!Window.prototype.Event) {
 	(function (){
-	
-		window.Event = Window.prototype.Event = function Event(type, eventInitDict) {
-			if (!type) {
-				throw new Error('Not enough arguments');
+		window.Event = Window.prototype.Event = Document.prototype.Event = Element.prototype.Event = function Event(type, eventInitDict) {
+			if (!type) { throw new Error('Not enough arguments'); }
+			var event, 
+				bubbles = eventInitDict && eventInitDict.bubbles !== undefined ? eventInitDict.bubbles : false,
+				cancelable = eventInitDict && eventInitDict.cancelable !== undefined ? eventInitDict.cancelable : false;
+			if ( 'createEvent' in document ) {
+				event = document.createEvent('Event');			
+				event.initEvent(type, bubbles, cancelable);
+			} else {
+				event = document.createEventObject();		
+				event.type = type;
+				event.bubbles = bubbles;
+				event.cancelable = cancelable;	
 			}
-	
-			var event = document.createEventObject();
-	
-			event.type = type;
-			event.bubbles = eventInitDict && eventInitDict.bubbles !== undefined ? eventInitDict.bubbles : false;
-			event.cancelable = eventInitDict && eventInitDict.cancelable !== undefined ? eventInitDict.cancelable : false;
-	
 			return event;
 		};
-	
-		// addEventListener
+	})();
+}
+
+// CustomEvent
+if (!('CustomEvent' in window) || !('CustomEvent' in Window.prototype)) {
+	(function(){		
+		window.CustomEvent = Window.prototype.CustomEvent = Document.prototype.CustomEvent = Element.prototype.CustomEvent = function CustomEvent(type, eventInitDict) {
+			if (!type) {
+				throw Error('TypeError: Failed to construct "CustomEvent": An event name must be provided.');
+			}
+			var event = new Event(type, eventInitDict);
+			event.detail = eventInitDict && eventInitDict.detail || null;
+			return event;
+		};
+		
+	})()
+}
+
+// addEventListener
+if (!window.addEventListener||!Window.prototype.addEventListener) {
+	(function (){
 		window.addEventListener = Window.prototype.addEventListener = Document.prototype.addEventListener = Element.prototype.addEventListener = function addEventListener() {
 			var	element = this,
-			type = arguments[0],
-			listener = arguments[1];
+				type = arguments[0],
+				listener = arguments[1];
 	
-			if (!element._events) {
-				element._events = {};
-			}
+			if (!element._events) {	element._events = {}; }
 	
 			if (!element._events[type]) {
 				element._events[type] = function (event) {
-					var
-					list = element._events[event.type].list,
-					events = list.slice(),
-					index = -1,
-					length = events.length,
-					eventElement;
+					var	list = element._events[event.type].list,
+						events = list.slice(),
+						index = -1,
+						length = events.length,
+						eventElement;
 	
 					event.preventDefault = function preventDefault() {
 						if (event.cancelable !== false) {
@@ -281,11 +294,10 @@ if (!window.Event||!Window.prototype.Event) {
 		};
 	
 		window.removeEventListener = Window.prototype.removeEventListener = Document.prototype.removeEventListener = Element.prototype.removeEventListener = function removeEventListener() {
-			var
-			element = this,
-			type = arguments[0],
-			listener = arguments[1],
-			index;
+			var	element = this,
+				type = arguments[0],
+				listener = arguments[1],
+				index;
 	
 			if (element._events && element._events[type] && element._events[type].list) {
 				index = element._events[type].list.indexOf(listener);
@@ -302,7 +314,12 @@ if (!window.Event||!Window.prototype.Event) {
 				}
 			}
 		};
-	
+	})();
+}
+
+// Event dispatcher	/ trigger
+if (!window.dispatchEvent||!Window.prototype.dispatchEvent||!Document.prototype.dispatchEvent||!Element.prototype.dispatchEvent) {
+	(function(){	
 		window.dispatchEvent = Window.prototype.dispatchEvent = Document.prototype.dispatchEvent = Element.prototype.dispatchEvent = function dispatchEvent(event) {
 			if (!arguments.length) {
 				throw new Error('Not enough arguments');
@@ -348,15 +365,5 @@ if (!window.Event||!Window.prototype.Event) {
 	
 			return true;
 		};
-	
-	
-		// CustomEvent
-		window.CustomEvent = function CustomEvent(type, eventInitDict) {
-			var event = new Event(type, eventInitDict);
-			event.detail = eventInitDict && eventInitDict.detail || null;
-			return event;
-		};
-	
-	
-	})()
+	})();
 }
