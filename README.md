@@ -8,7 +8,8 @@
 * date.now - uses the `new Date().getTime()` synthax to return the current time
 * window.performance.now - uses the above `date.now` in a way to get more accuracy for the current time, essential for the below
 * requestAnimationFrame - the fallback for legacy browsers for `window.requestAnimationFrame` for better animation performance, see <a href="https://github.com/thednp/kute.js">KUTE.js</a>
-* Event - this makes HTML4 browsers as well as IE8-IE11 work properly with `Event`, `addEventListener`,  `removeEventListener`,  `dispatchEvent`
+* Event - this makes HTML4 browsers as well as IE8-IE11 work properly with `Event`
+* Event.prototype - `addEventListener`,  `removeEventListener`,  `dispatchEvent` for old / 'out of standard' browsers
 * CustomEvent - makes use of the above `new Event()` for stuff like unsupported events types or user defined events like `my.custom.event`, see the carousel script for <a href="https://github.com/thednp/bootstrap.native/blob/master/lib/carousel-native.js#L113-L116">an example</a> on how to use, this also works with IE8-IE11
 
 ## What is minifill.js for
