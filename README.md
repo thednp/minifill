@@ -60,8 +60,10 @@ function update(){
 ```
 
 <b>Create Native Events</b>
+
 Instead of writing
 ```
+// typical triggering events these days
 if ( 'createEventObject' in document ) {
 	event = document.createEventObject();		
 	event.type = type;
