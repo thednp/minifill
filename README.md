@@ -59,19 +59,18 @@ function update(){
 }
 ```
 
-<b>Create Native Events</b>
-
+<b>Create Native Events</b><br>
 Instead of writing
 ```
 // typical triggering events these days
 if ( 'createEventObject' in document ) {
-	event = document.createEventObject();		
-	event.type = type;
-	event.bubbles = bubbles;
-	event.cancelable = cancelable;
+	myChangeEvent = document.createEventObject();		
+	myChangeEvent.type = type;
+	myChangeEvent.bubbles = bubbles;
+	myChangeEvent.cancelable = cancelable;
 } else {
-	event = document.createEvent('Event');			
-	event.initEvent(type, bubbles, cancelable);	
+	myChangeEvent = document.createEvent('Event');			
+	myChangeEvent.initEvent(type, bubbles, cancelable);	
 }
 ```
 you can simply write
