@@ -50,15 +50,6 @@ var width = elStyle.width; // returns the current computed width
 var timeNow = window.performance.now(); // returns a number with the exact current time
 ```
 
-<b>Animation fallback for legacy browsers</b>
-```
-// requestAnimationFrame
-function update(){
-    window.requestAnimationFrame(update); // fires the frame
-    // do some stuff on the this frame
-}
-```
-
 <b>Create Native Events</b><br>
 Instead of writing
 ```
