@@ -5,6 +5,15 @@ if (!this.Document){this.Document = this.HTMLDocument; }
 // Element
 if (!window.HTMLElement) { window.HTMLElement = window.Element; }
 
+// Window
+(function(global) {
+	if (global.constructor) {
+		global.Window = global.constructor;
+	} else {
+		(global.Window = global.constructor = new Function('return function Window() {}')()).prototype = this;
+	}
+}(this));
+
 // Date.now
 if(!Date.now){ Date.now = function now() { return new Date().getTime(); }; }
 
