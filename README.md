@@ -2,6 +2,7 @@
 
 ## A minimal polyfill with most essential stuff:
 * <b>Document</b> - IE8 doesn't know who is `this.Document`, it's `this.HTMLDocument`
+* <b>Window</b> - older Safari doesn't know who is `this.Window`, it's `this`
 * <b>Element</b> - IE8 doesn't know who is `window.Element`, it's `window.HTMLElement` 
 * <b>indexOf</b> - `Array.prototype.indexOf` for string and array checks
 * <b>getComputedStyle</b> - `window.getComputedStyle()` returns the true dimensions, spacing, or other supported properties
