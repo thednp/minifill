@@ -7,10 +7,10 @@
 * <b>indexOf</b> - `Array.prototype.indexOf` for string and array checks
 * <b>getComputedStyle</b> - `window.getComputedStyle()` returns the true dimensions, spacing, or other supported properties
 * <b>date.now</b> - uses the `new Date().getTime()` synthax to return the current time
-* <b>window.performance.now</b> - uses the above `date.now` in a way to get more accuracy for the current time, essential for the below
+* <b>window.performance.now</b> - uses the above `date.now` in a way to get more accuracy for the current time
 * <b>Event</b> - implements `createEvent` or `createEventObject` to make HTML4 browsers as well as IE8-IE11 work properly with today's standard `Event`
 * <b>Event.prototype</b> - `addEventListener`,  `removeEventListener`,  `dispatchEvent` for old / 'out of standard' browsers
-* <b>CustomEvent</b> - makes use of the above `new Event()` for stuff like unsupported events types or user defined events like `my.custom.event`, see the carousel script for <a href="https://github.com/thednp/bootstrap.native/blob/master/lib/carousel-native.js#L113-L116">an example</a> on how to use, this also works with IE8-IE11
+* <b>CustomEvent</b> - makes use of the above `new Event()` for stuff like unsupported events types or user defined events like `my.custom.event`, see the carousel script for <a href="https://github.com/thednp/bootstrap.native/blob/master/lib/carousel-native.js#L117-L120">an example</a> on how to use, this also works with IE8-IE11
 
 ## What is minifill.js for
 * HTML4 browsers that don't support/recognize these methods/objects
