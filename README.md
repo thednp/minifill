@@ -1,4 +1,5 @@
-# minifill.js - the 6k polyfill
+# minifill.js - the 6k polyfill (2.1k gzipped)
+Ever wondered how to fix old browsers, improve scripting execution performance, simplify scripting and improve overall code quality all without using jQuery? The answer is polyfills.
 
 ## A minimal polyfill with most essential stuff:
 * <b>Document</b> - IE8 doesn't know who is `this.Document`, it's `this.HTMLDocument`
