@@ -23,7 +23,7 @@ Ever wondered how to fix old browsers, improve scripting execution performance, 
 * Add one of the following to your head tag
 ```
 <!-- if you wanna use it locally -->
-<script type="text/javascript" src="../assets/js//minifill.min.js"></script>
+<script type="text/javascript" src="../assets/js/minifill.min.js"></script>
 
 <!-- if you wanna use JSDELIVR -->
 <script type="text/javascript" src="https://cdn.jsdelivr.net/minifill/0.0.3/minifill.min.js"></script>
