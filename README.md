@@ -1,6 +1,11 @@
 # minifill.js - the 6k polyfill (2.1k gzipped)
 Ever wondered how to fix old browsers, improve scripting execution performance, simplify scripting and improve overall code quality all without using jQuery? The answer is polyfills.
 
+The polyfills come from various sources to which I give full credits:
+* [Financial Times](https://polyfill.io/) polyfill service
+* Remy Sharp (the one who came with the name of `polyfill`)
+* Mozilla Developer Network
+
 TIP: My other libries such as [bootstrap.native](https://github.com/thednp/bootstrap.native) and [KUTE.js](https://github.com/thednp/kute.js) work best with minifill.
 
 ## A minimal polyfill with most essential stuff:
@@ -12,7 +17,7 @@ TIP: My other libries such as [bootstrap.native](https://github.com/thednp/boots
 * <b>date.now</b> - uses the `new Date().getTime()` synthax to return the current time
 * <b>window.performance.now</b> - uses the above `date.now` in a way to get more accuracy for the current time
 * <b>Event</b> - implements `createEvent` or `createEventObject` to make HTML4 browsers as well as IE8-IE11 work properly with today's standard `Event`
-* <b>Event.prototype</b> - `addEventListener`,  `removeEventListener`,  `dispatchEvent` for old / 'out of standard' browsers
+* <b>Event.prototype</b> - `addEventListener`, `removeEventListener`, `dispatchEvent` for old / 'out of standard' browsers
 * <b>CustomEvent</b> - makes use of the above `new Event()` for stuff like unsupported events types or user defined events like `my.custom.event`, see the carousel script for <a href="https://github.com/thednp/bootstrap.native/blob/master/lib/carousel-native.js#L77-L80">an example</a> on how to use, this also works with IE8-IE11
 
 ## What is minifill.js for
