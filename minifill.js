@@ -183,7 +183,7 @@ if (!window.Event||!Window.prototype.Event) {
 				event = document.createEvent('Event');			
 				event.initEvent(type, bubbles, cancelable);
 			} else {
-				event = document.createEventObject(window.event);
+				event = document.createEventObject();
 				event.type = type;
 				event.bubbles = bubbles;
 				event.cancelable = cancelable;
