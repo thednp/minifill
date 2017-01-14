@@ -183,10 +183,10 @@ if (!window.Event||!Window.prototype.Event) {
 				event = document.createEvent('Event');			
 				event.initEvent(type, bubbles, cancelable);
 			} else {
-				event = document.createEventObject();		
+				event = document.createEventObject(window.event);
 				event.type = type;
 				event.bubbles = bubbles;
-				event.cancelable = cancelable;	
+				event.cancelable = cancelable;
 			}
 			return event;
 		};
