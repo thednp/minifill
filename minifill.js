@@ -172,6 +172,7 @@
   }  
 
   // Element.prototype.classList by thednp
+  // inspired by https://github.com/remy/polyfills/blob/master/classList.js
   if( !(classList in ELEMENT[prototype]) ) {
     var ClassLIST = function(elem){
       var classArr = elem[classList] = [],
