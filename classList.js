@@ -3,39 +3,35 @@
 // developed by thednp
 // license MIT
 
-if( !('classList' in Element.prototype) ) {
-  (function(){
-    var className = 'className', add = 'add', classList = 'classList', remove = 'remove', contains = 'contains',
-        prototype = 'prototype', element = 'element';
+	if( !(classList in ELEMENT[prototype]) ) {
+		var ClassLIST = function(elem){
+			var classArr = elem[classList] = [],
+					classesLIST = elem[className].replace(/^\s+|\s+$/g,'').split(/\s+/),
 
-    // classList definition
-    function ClassLIST(elem){
-      this[element] = elem;
-      this[classList] = elem[classList] = [];
-      var classesLIST = elem[className].replace(/^\s+|\s+$/g,'').split(/\s+/);
-      for (var i = 0; i < classesLIST.length; i++) {
-        this[classList].push(classesLIST[i]);
-      }
-    }
+					// methods
+					hasClass = this[contains] = function(classNAME){
+						return classArr[indexOf](classNAME) > -1;
+					},
+					addClass = this[add] = function(classNAME){
+						if (!hasClass(classNAME)) {
+							classArr.push(classNAME);
+							elem[className] = classArr.join(' ');
+						}
+					},
+					removeClass = this[remove] = function(classNAME){
+						if (hasClass(classNAME)) {
+							classArr.splice(classArr[indexOf](classNAME),1);
+							elem[className] = classArr.join(' '); 
+						}
+					},
+					toggleClass = this.toggle = function(classNAME){
+						if ( hasClass(classNAME) ) { removeClass(classNAME); } 
+						else { addClass(classNAME); } 
+					};
 
-    // methods
-    ClassLIST[prototype][add] = function(classNAME){
-      if (this[classList].indexOf(classNAME)<0) {
-        this[classList].push(classNAME);
-        this[element][className] = this[classList].join(' ');
-      }
-    };
-    ClassLIST[prototype][remove] = function(classNAME){
-      var classINDEX = this[classList].indexOf(classNAME);
-      if (classINDEX>-1) {
-        this[classList].splice(classINDEX,1);
-        this[element][className] = this[classList].join(' ');
-      }
-    };
-    ClassLIST[prototype][contains] = function(classNAME){
-      return this[classList].indexOf(classNAME) > -1;
-    };
-
-    Object.defineProperty(Element[prototype], classList, { get: function () { return new ClassLIST(this); } });
-  }());
-}
+			for (var i = 0; i < classesLIST[length]; i++) {
+				classArr.push(classesLIST[i]);
+			}
+		}
+		Object.defineProperty(ELEMENT[prototype], classList, { get: function () { return new ClassLIST(this); } });
+	}
