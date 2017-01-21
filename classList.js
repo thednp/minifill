@@ -1,4 +1,5 @@
 // Element.prototype.classList polyfill
+// inspired by https://github.com/remy/polyfills/blob/master/classList.js
 // developed by thednp
 // license MIT
 
