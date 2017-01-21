@@ -1,52 +1,52 @@
 // minifill.js | MIT | dnp_theme
 (function(){
 
-	// strings
-	var	className = 'className', add = 'add', classList = 'classList', remove = 'remove', contains = 'contains',
-		Doc = 'Document', doc = document, DOCUMENT = this[Doc] || this.HTMLDocument, // IE8
-		WIN = 'Window', win = window, WINDOW =  this.constructor || this[WIN] || Window, // old Safari
-		prototype = 'prototype', element = 'element', indexOf = 'indexOf', length = 'length', 
-		getComputedStyle = 'getComputedStyle', fontSize = 'fontSize',
-		HTMLELEMENT = 'HTMLElement', documentElement = 'documentElement', now = 'now', performance = 'performance',
-		ELEMENT = Element, EVENT = 'Event', CustomEvent = 'CustomEvent', IE8EVENTS = '_events', 
-		etype = 'type', target = 'target', currentTarget = 'currentTarget', relatedTarget = 'relatedTarget', currentStyle = 'currentStyle',
-		cancelable = 'cancelable', bubbles = 'bubbles', cancelBubble = 'cancelBubble', cancelImmediate = 'cancelImmediate', detail = 'detail',
-		addEventListener = 'addEventListener', removeEventListener = 'removeEventListener', dispatchEvent = 'dispatchEvent';
+  // strings
+  var  className = 'className', add = 'add', classList = 'classList', remove = 'remove', contains = 'contains',
+    Doc = 'Document', doc = document, DOCUMENT = this[Doc] || this.HTMLDocument, // IE8
+    WIN = 'Window', win = window, WINDOW =  this.constructor || this[WIN] || Window, // old Safari
+    prototype = 'prototype', element = 'element', indexOf = 'indexOf', length = 'length', 
+    getComputedStyle = 'getComputedStyle', fontSize = 'fontSize',
+    HTMLELEMENT = 'HTMLElement', documentElement = 'documentElement', now = 'now', performance = 'performance',
+    ELEMENT = Element, EVENT = 'Event', CustomEvent = 'CustomEvent', IE8EVENTS = '_events', 
+    etype = 'type', target = 'target', currentTarget = 'currentTarget', relatedTarget = 'relatedTarget', currentStyle = 'currentStyle',
+    cancelable = 'cancelable', bubbles = 'bubbles', cancelBubble = 'cancelBubble', cancelImmediate = 'cancelImmediate', detail = 'detail',
+    addEventListener = 'addEventListener', removeEventListener = 'removeEventListener', dispatchEvent = 'dispatchEvent';
 
-	// Element
-	if (!win[HTMLELEMENT]) { win[HTMLELEMENT] = win[ELEMENT]; }
+  // Element
+  if (!win[HTMLELEMENT]) { win[HTMLELEMENT] = win[ELEMENT]; }
 
-	// Array[prototype][indexOf]
-	if (!Array[prototype][indexOf]) {
-		Array[prototype][indexOf] = function(searchElement) {
-			if (this === undefined || this === null) {
-				throw new TypeError(this + ' is not an object');
-			}
-		
-			var	arraylike = this instanceof String ? this.split('') : this,
-				lengthValue = Math.max(Math.min(arraylike[length], 9007199254740991), 0) || 0,
-				index = Number(arguments[1]) || 0;
-		
-			index = (index < 0 ? Math.max(lengthValue + index, 0) : index) - 1;
-		
-			while (++index < lengthValue) {
-				if (index in arraylike && arraylike[index] === searchElement) {
-					return index;
-				}
-			}
-		
-			return -1;
-		};
-	}
+  // Array[prototype][indexOf]
+  if (!Array[prototype][indexOf]) {
+    Array[prototype][indexOf] = function(searchElement) {
+      if (this === undefined || this === null) {
+        throw new TypeError(this + ' is not an object');
+      }
+    
+      var  arraylike = this instanceof String ? this.split('') : this,
+        lengthValue = Math.max(Math.min(arraylike[length], 9007199254740991), 0) || 0,
+        index = Number(arguments[1]) || 0;
+    
+      index = (index < 0 ? Math.max(lengthValue + index, 0) : index) - 1;
+    
+      while (++index < lengthValue) {
+        if (index in arraylike && arraylike[index] === searchElement) {
+          return index;
+        }
+      }
+    
+      return -1;
+    };
+  }
 
   // Date[now]
   if(!Date[now]){ Date[now] = function() { return new Date().getTime(); }; }
 
   // performance[now]
   (function(){
-    if (performance in win == false) {	win[performance] = {}; }
+    if (performance in win == false) {  win[performance] = {}; }
     
-    if (now in win[performance] == false){	
+    if (now in win[performance] == false){  
       var nowOffset = Date[now]();
       
       window[performance][now] = function(){
@@ -80,7 +80,7 @@
     }
   
     function setShortStyleProperty(style, property) {
-      var	borderSuffix = property == 'border' ? 'Width' : '',
+      var  borderSuffix = property == 'border' ? 'Width' : '',
         t = property + 'Top' + borderSuffix,
         r = property + 'Right' + borderSuffix,
         b = property + 'Bottom' + borderSuffix,
@@ -132,7 +132,7 @@
       setShortStyleProperty(style, 'padding');
       setShortStyleProperty(style, 'border');
   
-      style[fontSize] = Math.round(fontSizeValue) + 'px';		
+      style[fontSize] = Math.round(fontSizeValue) + 'px';    
     }
     
     CSSStyleDeclaration[prototype] = {
@@ -163,7 +163,7 @@
       getPropertyCSSValue: function () {
         throw new Error('DOM Exception 9');
       }
-    };		
+    };    
   
     // <Global>.getComputedStyle
     win[getComputedStyle] = function(element) {
@@ -171,208 +171,204 @@
     };
   }  
 
-	// Element.prototype.classList by thednp
-	if( !(classList in ELEMENT[prototype]) ) {
-		(function(){
+  // Element.prototype.classList by thednp
+  if( !(classList in ELEMENT[prototype]) ) {
+    var ClassLIST = function(elem){
+      var classArr = elem[classList] = [],
+          classesLIST = elem[className].replace(/^\s+|\s+$/g,'').split(/\s+/),
 
-			function ClassLIST(elem){
-				this[element] = elem;
-				this[classList] = elem[classList] = [];
-				var classesLIST = elem[className].replace(/^\s+|\s+$/g,'').split(/\s+/);
-				for (var i = 0; i < classesLIST[length]; i++) {
-					this[classList].push(classesLIST[i]);
-				}
-			}
+          // methods
+          hasClass = this[contains] = function(classNAME){
+            return classArr[indexOf](classNAME) > -1;
+          },
+          addClass = this[add] = function(classNAME){
+            if (!hasClass(classNAME)) {
+              classArr.push(classNAME);
+              elem[className] = classArr.join(' ');
+            }
+          },
+          removeClass = this[remove] = function(classNAME){
+            if (hasClass(classNAME)) {
+              classArr.splice(classArr[indexOf](classNAME),1);
+              elem[className] = classArr.join(' '); 
+            }
+          },
+          toggleClass = this.toggle = function(classNAME){
+            if ( hasClass(classNAME) ) { removeClass(classNAME); } 
+            else { addClass(classNAME); } 
+          };
 
-			// methods
-			ClassLIST[prototype][contains] = function(classNAME){
-				return this[classList][indexOf](classNAME) > -1;
-			};
-			ClassLIST[prototype][add] = function(classNAME){
-				if (!this[contains](classNAME)) {
-					this[classList].push(classNAME);
-					this[element][className] = this[classList].join(' ');
-				}
-			};
-			ClassLIST[prototype][remove] = function(classNAME){
-				if (this[contains](classNAME)) {
-					this[classList].splice(this[classList][indexOf](classNAME),1);
-					this[element][className] = this[classList].join(' '); 
-				}
-			};
-			ClassLIST[prototype].toggle = function(classNAME){
-				if ( this[contains](classNAME) ) { this[remove](classNAME); } 
-				else { this[add](classNAME); } 
-			};
+      for (var i = 0; i < classesLIST[length]; i++) {
+        classArr.push(classesLIST[i]);
+      }
+    }
+    Object.defineProperty(ELEMENT[prototype], classList, { get: function () { return new ClassLIST(this); } });
+  }
 
-			Object.defineProperty(ELEMENT[prototype], classList, { get: function () { return new ClassLIST(this); } });
-		}());
-	}
+  // Event
+  if (!win[EVENT]||!WINDOW[prototype][EVENT]) {
+    win[EVENT] = WINDOW[prototype][EVENT] = DOCUMENT[prototype][EVENT] = ELEMENT[prototype][EVENT] = function(type, eventInitDict) {
+      if (!type) { throw new Error('Not enough arguments'); }
+      var event, 
+        bubblesValue = eventInitDict && eventInitDict[bubbles] !== undefined ? eventInitDict[bubbles] : false,
+        cancelableValue = eventInitDict && eventInitDict[cancelable] !== undefined ? eventInitDict[cancelable] : false;
+      if ( 'createEvent' in doc ) {
+        event = doc.createEvent(EVENT);      
+        event.initEvent(type, bubblesValue, cancelableValue);
+      } else {
+        event = doc.createEventObject();
+        event[etype] = type;
+        event[bubbles] = bubblesValue;
+        event[cancelable] = cancelableValue;
+      }
+      return event;
+    };
+  }
 
-	// Event
-	if (!win[EVENT]||!WINDOW[prototype][EVENT]) {
-		win[EVENT] = WINDOW[prototype][EVENT] = DOCUMENT[prototype][EVENT] = ELEMENT[prototype][EVENT] = function(type, eventInitDict) {
-			if (!type) { throw new Error('Not enough arguments'); }
-			var event, 
-				bubblesValue = eventInitDict && eventInitDict[bubbles] !== undefined ? eventInitDict[bubbles] : false,
-				cancelableValue = eventInitDict && eventInitDict[cancelable] !== undefined ? eventInitDict[cancelable] : false;
-			if ( 'createEvent' in doc ) {
-				event = doc.createEvent(EVENT);			
-				event.initEvent(type, bubblesValue, cancelableValue);
-			} else {
-				event = doc.createEventObject();
-				event[etype] = type;
-				event[bubbles] = bubblesValue;
-				event[cancelable] = cancelableValue;
-			}
-			return event;
-		};
-	}
+  // CustomEvent
+  if (!(CustomEvent in win) || !(CustomEvent in WINDOW[prototype])) {
+    win[CustomEvent] = WINDOW[prototype][CustomEvent] = DOCUMENT[prototype][CustomEvent] = Element[prototype][CustomEvent] = function(type, eventInitDict) {
+      if (!type) {
+        throw Error('CustomEvent TypeError: An event name must be provided.');
+      }
+      var event = new Event(type, eventInitDict);
+      event[detail] = eventInitDict && eventInitDict[detail] || null;
+      return event;
+    };
+  }
 
-	// CustomEvent
-	if (!(CustomEvent in win) || !(CustomEvent in WINDOW[prototype])) {
-		win[CustomEvent] = WINDOW[prototype][CustomEvent] = DOCUMENT[prototype][CustomEvent] = Element[prototype][CustomEvent] = function(type, eventInitDict) {
-			if (!type) {
-				throw Error('CustomEvent TypeError: An event name must be provided.');
-			}
-			var event = new Event(type, eventInitDict);
-			event[detail] = eventInitDict && eventInitDict[detail] || null;
-			return event;
-		};
-	}
+  // addEventListener | removeEventListener
+  if (!win[addEventListener]||!WINDOW[prototype][addEventListener]) {
+    win[addEventListener] = WINDOW[prototype][addEventListener] = DOCUMENT[prototype][addEventListener] = ELEMENT[prototype][addEventListener] = function() {
+      var  element = this,
+        type = arguments[0],
+        listener = arguments[1];
 
-	// addEventListener | removeEventListener
-	if (!win[addEventListener]||!WINDOW[prototype][addEventListener]) {
-		win[addEventListener] = WINDOW[prototype][addEventListener] = DOCUMENT[prototype][addEventListener] = ELEMENT[prototype][addEventListener] = function() {
-			var	element = this,
-				type = arguments[0],
-				listener = arguments[1];
+      if (!element[IE8EVENTS]) {  element[IE8EVENTS] = {}; }
 
-			if (!element[IE8EVENTS]) {	element[IE8EVENTS] = {}; }
+      if (!element[IE8EVENTS][type]) {
+        element[IE8EVENTS][type] = function (event) {
+          var  list = element[IE8EVENTS][event[etype]].list,
+            events = list.slice(),
+            index = -1,
+            lengthValue = events[length],
+            eventElement;
 
-			if (!element[IE8EVENTS][type]) {
-				element[IE8EVENTS][type] = function (event) {
-					var	list = element[IE8EVENTS][event[etype]].list,
-						events = list.slice(),
-						index = -1,
-						lengthValue = events[length],
-						eventElement;
+          event.preventDefault = function() {
+            if (event[cancelable] !== false) {
+              event.returnValue = false;
+            }
+          };
 
-					event.preventDefault = function() {
-						if (event[cancelable] !== false) {
-							event.returnValue = false;
-						}
-					};
+          event.stopPropagation = function() {
+            event[cancelBubble] = true;
+          };
 
-					event.stopPropagation = function() {
-						event[cancelBubble] = true;
-					};
+          event.stopImmediatePropagation = function() {
+            event[cancelBubble] = true;
+            event[cancelImmediate] = true;
+          };
 
-					event.stopImmediatePropagation = function() {
-						event[cancelBubble] = true;
-						event[cancelImmediate] = true;
-					};
+          event[currentTarget] = element;
+          event[relatedTarget] = event[relatedTarget] || event.fromElement || null;
+          event[target] = event[target] || event.srcElement || element;
+          event.timeStamp = new Date().getTime();
 
-					event[currentTarget] = element;
-					event[relatedTarget] = event[relatedTarget] || event.fromElement || null;
-					event[target] = event[target] || event.srcElement || element;
-					event.timeStamp = new Date().getTime();
+          if (event.clientX) {
+            event.pageX = event.clientX + doc[documentElement].scrollLeft;
+            event.pageY = event.clientY + doc[documentElement].scrollTop;
+          }
 
-					if (event.clientX) {
-						event.pageX = event.clientX + doc[documentElement].scrollLeft;
-						event.pageY = event.clientY + doc[documentElement].scrollTop;
-					}
+          while (++index < lengthValue && !event[cancelImmediate]) {
+            if (index in events) {
+              eventElement = events[index];
 
-					while (++index < lengthValue && !event[cancelImmediate]) {
-						if (index in events) {
-							eventElement = events[index];
+              if (list[indexOf](eventElement) !== -1 && typeof eventElement === 'function') {
+                eventElement.call(element, event);
+              }
+            }
+          }
+        };
 
-							if (list[indexOf](eventElement) !== -1 && typeof eventElement === 'function') {
-								eventElement.call(element, event);
-							}
-						}
-					}
-				};
+        element[IE8EVENTS][type].list = [];
 
-				element[IE8EVENTS][type].list = [];
+        if (element.attachEvent) {
+          element.attachEvent('on' + type, element[IE8EVENTS][type]);
+        }
+      }
 
-				if (element.attachEvent) {
-					element.attachEvent('on' + type, element[IE8EVENTS][type]);
-				}
-			}
+      element[IE8EVENTS][type].list.push(listener);
+    };
 
-			element[IE8EVENTS][type].list.push(listener);
-		};
+    win[removeEventListener] = WINDOW[prototype][removeEventListener] = DOCUMENT[prototype][removeEventListener] = ELEMENT[prototype][removeEventListener] = function() {
+      var  element = this,
+        type = arguments[0],
+        listener = arguments[1],
+        index;
 
-		win[removeEventListener] = WINDOW[prototype][removeEventListener] = DOCUMENT[prototype][removeEventListener] = ELEMENT[prototype][removeEventListener] = function() {
-			var	element = this,
-				type = arguments[0],
-				listener = arguments[1],
-				index;
+      if (element[IE8EVENTS] && element[IE8EVENTS][type] && element[IE8EVENTS][type].list) {
+        index = element[IE8EVENTS][type].list[indexOf](listener);
 
-			if (element[IE8EVENTS] && element[IE8EVENTS][type] && element[IE8EVENTS][type].list) {
-				index = element[IE8EVENTS][type].list[indexOf](listener);
+        if (index !== -1) {
+          element[IE8EVENTS][type].list.splice(index, 1);
 
-				if (index !== -1) {
-					element[IE8EVENTS][type].list.splice(index, 1);
+          if (!element[IE8EVENTS][type].list[length]) {
+            if (element.detachEvent) {
+              element.detachEvent('on' + type, element[IE8EVENTS][type]);
+            }
+            delete element[IE8EVENTS][type];
+          }
+        }
+      }
+    };
+  }
 
-					if (!element[IE8EVENTS][type].list[length]) {
-						if (element.detachEvent) {
-							element.detachEvent('on' + type, element[IE8EVENTS][type]);
-						}
-						delete element[IE8EVENTS][type];
-					}
-				}
-			}
-		};
-	}
+  // Event dispatcher
+  if (!win[dispatchEvent]||!WINDOW[prototype][dispatchEvent]||!DOCUMENT[prototype][dispatchEvent]||!ELEMENT[prototype][dispatchEvent]) {
+    win[dispatchEvent] = WINDOW[prototype][dispatchEvent] = DOCUMENT[prototype][dispatchEvent] = ELEMENT[prototype][dispatchEvent] = function (event) {
+      if (!arguments[length]) {
+        throw new Error('Not enough arguments');
+      }
 
-	// Event dispatcher
-	if (!win[dispatchEvent]||!WINDOW[prototype][dispatchEvent]||!DOCUMENT[prototype][dispatchEvent]||!ELEMENT[prototype][dispatchEvent]) {
-		win[dispatchEvent] = WINDOW[prototype][dispatchEvent] = DOCUMENT[prototype][dispatchEvent] = ELEMENT[prototype][dispatchEvent] = function (event) {
-			if (!arguments[length]) {
-				throw new Error('Not enough arguments');
-			}
+      if (!event || typeof event[etype] !== 'string') {
+        throw new Error('DOM Events Exception 0');
+      }
 
-			if (!event || typeof event[etype] !== 'string') {
-				throw new Error('DOM Events Exception 0');
-			}
+      var element = this, type = event[etype];
 
-			var element = this, type = event[etype];
+      try {
+        if (!event[bubbles]) {
+          event[cancelBubble] = true;
 
-			try {
-				if (!event[bubbles]) {
-					event[cancelBubble] = true;
+          var cancelBubbleEvent = function (event) {
+            event[cancelBubble] = true;
 
-					var cancelBubbleEvent = function (event) {
-						event[cancelBubble] = true;
+            (element || win).detachEvent('on' + type, cancelBubbleEvent);
+          };
 
-						(element || win).detachEvent('on' + type, cancelBubbleEvent);
-					};
+          this.attachEvent('on' + type, cancelBubbleEvent);
+        }
 
-					this.attachEvent('on' + type, cancelBubbleEvent);
-				}
+        this.fireEvent('on' + type, event);
+      } catch (error) {
+        event[target] = element;
 
-				this.fireEvent('on' + type, event);
-			} catch (error) {
-				event[target] = element;
+        do {
+          event[currentTarget] = element;
 
-				do {
-					event[currentTarget] = element;
+          if (IE8EVENTS in element && typeof element[IE8EVENTS][type] === 'function') {
+            element[IE8EVENTS][type].call(element, event);
+          }
 
-					if (IE8EVENTS in element && typeof element[IE8EVENTS][type] === 'function') {
-						element[IE8EVENTS][type].call(element, event);
-					}
+          if (typeof element['on' + type] === 'function') {
+            element['on' + type].call(element, event);
+          }
 
-					if (typeof element['on' + type] === 'function') {
-						element['on' + type].call(element, event);
-					}
+          element = element.nodeType === 9 ? element.parentWindow : element.parentNode;
+        } while (element && !event[cancelBubble]);
+      }
 
-					element = element.nodeType === 9 ? element.parentWindow : element.parentNode;
-				} while (element && !event[cancelBubble]);
-			}
-
-			return true;
-		};
-	}
+      return true;
+    };
+  }
 }());
