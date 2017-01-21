@@ -5,7 +5,7 @@
   var  className = 'className', add = 'add', classList = 'classList', remove = 'remove', contains = 'contains',
     Doc = 'Document', doc = document, DOCUMENT = this[Doc] || this.HTMLDocument, // IE8
     WIN = 'Window', win = window, WINDOW =  this.constructor || this[WIN] || Window, // old Safari
-    prototype = 'prototype', element = 'element', indexOf = 'indexOf', length = 'length', 
+    prototype = 'prototype', indexOf = 'indexOf', length = 'length', 
     getComputedStyle = 'getComputedStyle', fontSize = 'fontSize',
     HTMLELEMENT = 'HTMLElement', documentElement = 'documentElement', now = 'now', performance = 'performance',
     ELEMENT = Element, EVENT = 'Event', CustomEvent = 'CustomEvent', IE8EVENTS = '_events', 
