@@ -40,6 +40,21 @@ TIP: My other libries such as [bootstrap.native](https://github.com/thednp/boots
 ```
 
 ## Examples
+<b>Class Manipulation</b>
+```
+// check for a class
+var docHasClass = document.body.classList.contains('someClass'); // true|false
+
+// add a class
+document.body.classList.add('someClass');
+
+// remove a class
+document.body.classList.remove('someClass');
+
+// toggle a class
+document.body.classList.toggle('someClass');
+```
+
 <b>String / Array checks</b>
 ```
 // indexOf
