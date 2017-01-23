@@ -1,18 +1,31 @@
 // minifill.js | MIT | dnp_theme
 (function(){
 
-  // strings
-  var  className = 'className', add = 'add', classList = 'classList', remove = 'remove', contains = 'contains',
-    Doc = 'Document', doc = document, DOCUMENT = this[Doc] || this.HTMLDocument, // IE8
+  // all repeated strings get a single reference
+  // document | window | element + corrections
+  var Doc = 'Document', doc = document, DOCUMENT = this[Doc] || this.HTMLDocument, // IE8
     WIN = 'Window', win = window, WINDOW =  this.constructor || this[WIN] || Window, // old Safari
-    prototype = 'prototype', indexOf = 'indexOf', length = 'length', 
-    getComputedStyle = 'getComputedStyle', fontSize = 'fontSize',
-    HTMLELEMENT = 'HTMLElement', documentElement = 'documentElement', now = 'now', performance = 'performance',
-    ELEMENT = Element, EVENT = 'Event', CustomEvent = 'CustomEvent', IE8EVENTS = '_events', 
-    etype = 'type', target = 'target', currentTarget = 'currentTarget', relatedTarget = 'relatedTarget', currentStyle = 'currentStyle',
+    HTMLELEMENT = 'HTMLElement', documentElement = 'documentElement', ELEMENT = Element,
+
+    // classList related
+    className = 'className', add = 'add', classList = 'classList', remove = 'remove', contains = 'contains',
+    
+    // object | array related
+    prototype = 'prototype', indexOf = 'indexOf', length = 'length',
+
+    // performance
+    now = 'now', performance = 'performance',
+
+    // getComputedStyle
+    getComputedStyle = 'getComputedStyle', currentStyle = 'currentStyle', fontSize = 'fontSize',
+
+    // event related
+    EVENT = 'Event', CustomEvent = 'CustomEvent', IE8EVENTS = '_events', 
+    etype = 'type', target = 'target', currentTarget = 'currentTarget', relatedTarget = 'relatedTarget',
     cancelable = 'cancelable', bubbles = 'bubbles', cancelBubble = 'cancelBubble', cancelImmediate = 'cancelImmediate', detail = 'detail',
     addEventListener = 'addEventListener', removeEventListener = 'removeEventListener', dispatchEvent = 'dispatchEvent';
 
+    
   // Element
   if (!win[HTMLELEMENT]) { win[HTMLELEMENT] = win[ELEMENT]; }
 
@@ -23,7 +36,7 @@
         throw new TypeError(this + ' is not an object');
       }
     
-      var  arraylike = this instanceof String ? this.split('') : this,
+      var arraylike = this instanceof String ? this.split('') : this,
         lengthValue = Math.max(Math.min(arraylike[length], 9007199254740991), 0) || 0,
         index = Number(arguments[1]) || 0;
     
@@ -172,11 +185,9 @@
   }  
 
   // Element.prototype.classList by thednp
-  // inspired by https://github.com/remy/polyfills/blob/master/classList.js
   if( !(classList in ELEMENT[prototype]) ) {
     var ClassLIST = function(elem){
-      var classArr = elem[classList] = [],
-          classesLIST = elem[className].replace(/^\s+|\s+$/g,'').split(/\s+/),
+      var classArr = elem[className].replace(/^\s+|\s+$/g,'').split(/\s+/) || [];
 
           // methods
           hasClass = this[contains] = function(classNAME){
@@ -198,10 +209,6 @@
             if ( hasClass(classNAME) ) { removeClass(classNAME); } 
             else { addClass(classNAME); } 
           };
-
-      for (var i = 0; i < classesLIST[length]; i++) {
-        classArr.push(classesLIST[i]);
-      }
     }
     Object.defineProperty(ELEMENT[prototype], classList, { get: function () { return new ClassLIST(this); } });
   }
@@ -302,7 +309,7 @@
     };
 
     win[removeEventListener] = WINDOW[prototype][removeEventListener] = DOCUMENT[prototype][removeEventListener] = ELEMENT[prototype][removeEventListener] = function() {
-      var  element = this,
+      var element = this,
         type = arguments[0],
         listener = arguments[1],
         index;
