@@ -1,4 +1,4 @@
-# minifill.js - the 6k polyfill (2.1k gzipped)
+# minifill.js - the 5k polyfill (2.1k gzipped)
 Ever wondered how to fix old browsers, improve scripting execution performance, simplify scripting and improve overall code quality all without using jQuery? The answer is polyfills.
 
 The polyfills come from various sources to which I give full credits:
