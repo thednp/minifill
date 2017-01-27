@@ -12,14 +12,14 @@ TIP: My other libries such as [bootstrap.native](https://github.com/thednp/boots
 * <b>Document</b> - IE8 doesn't know who is `this.Document`, it's `this.HTMLDocument`
 * <b>Window</b> - older Safari doesn't know who is `this.Window`, it's `this`
 * <b>Element</b> - IE8 doesn't know who is `window.Element`, it's `window.HTMLElement`
-* <b>Element.prototype.classList</b> - mostly for IE8 and other HTML4 browsers
-* <b>indexOf</b> - `Array.prototype.indexOf` for string and array checks
-* <b>getComputedStyle</b> - `window.getComputedStyle()` returns the true dimensions, spacing, or other supported properties
+* <b>Element.prototype.classList</b> - class manipulation mostly for IE8 and other HTML4 browsers, inspired by [Remy's](https://github.com/remy/polyfills/blob/master/classList.js) `classList`
+* <b>Array.prototype.indexOf</b> - for string and array checks
+* <b>window.getComputedStyle</b> - returns the true dimensions, spacing, or other supported properties
 * <b>date.now</b> - uses the `new Date().getTime()` synthax to return the current time
 * <b>window.performance.now</b> - uses the above `date.now` in a way to get more accuracy for the current time
 * <b>Event</b> - implements `createEvent` or `createEventObject` to make HTML4 browsers as well as IE8-IE11 work properly with today's standard `Event`
 * <b>Event.prototype</b> - `addEventListener`, `removeEventListener`, `dispatchEvent` for old / 'out of standard' browsers
-* <b>CustomEvent</b> - makes use of the above `new Event()` for stuff like unsupported events types or user defined events like `my.custom.event`, see the carousel script for <a href="https://github.com/thednp/bootstrap.native/blob/master/lib/carousel-native.js#L77-L80">an example</a> on how to use, this also works with IE8-IE11
+* <b>CustomEvent</b> - makes use of the above `new Event()` for stuff like unsupported events types or user defined events like `my.custom.event`, this also works with IE8-IE11
 
 ## What is minifill.js for
 * HTML4 browsers that don't support/recognize these methods/objects
@@ -34,26 +34,26 @@ TIP: My other libries such as [bootstrap.native](https://github.com/thednp/boots
 <script type="text/javascript" src="../assets/js/minifill.min.js"></script>
 
 <!-- if you wanna use JSDELIVR -->
-<script type="text/javascript" src="https://cdn.jsdelivr.net/minifill/0.0.3/minifill.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/minifill/0.0.4/minifill.min.js"></script>
 
 <!-- if you wanna use CDNJS -->
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/minifill/0.0.3/minifill.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/minifill/0.0.4/minifill.min.js"></script>
 ```
 
 ## Examples
 <b>Class Manipulation</b>
 ```
 // check for a class
-var docHasClass = document.body.classList.contains('someClass'); // true|false
+var docHasClass = myElement.classList.contains('someClass'); // return true|false
 
 // add a class
-document.body.classList.add('someClass');
+myElement.classList.add('someClass');
 
 // remove a class
-document.body.classList.remove('someClass');
+myElement.classList.remove('someClass');
 
 // toggle a class
-document.body.classList.toggle('someClass');
+myElement.classList.toggle('someClass');
 ```
 
 <b>String / Array checks</b>
@@ -114,7 +114,7 @@ myElement.dispatchEvent(myCustomEvent); // dispatches a CustomEvent event for my
 ```
 // addEventListener
 window.addEventListener('scroll',handler,false); // adds a new handler to the window `scroll` event
-//OR
+// OR
 myButton.addEventListener('click',handler,false); // adds a 'click' (or any other supported/custom event) handler for any HTML element
 ```
 
@@ -122,9 +122,10 @@ myButton.addEventListener('click',handler,false); // adds a 'click' (or any othe
 ```
 // removeEventListener
 window.removeEventListener('scroll',handler,false); // removes a handler bound to the window `scroll` event
-//OR
+// OR
 myButton.removeEventListener('click',handler,false); // removes a handler bound to 'click' (or any other supported/custom event) handler for any HTML element
 ```
+NOTE: if the `removeEventListener` call is not in the same context with `addEventListener`, it will produce no effect.
 
 ## License
 minifill.js is licensed under MIT License.
