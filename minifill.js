@@ -9,9 +9,10 @@
 
     // classList related
     className = 'className', add = 'add', classList = 'classList', remove = 'remove', contains = 'contains',
+    CLASS = 'class', setATTRIBUTE = 'setAttribute', getATTRIBUTE = 'getAttribute',
     
     // object | array related
-    prototype = 'prototype', indexOf = 'indexOf', length = 'length',
+    prototype = 'prototype', indexOf = 'indexOf', length = 'length', split = 'split',
 
     // performance
     now = 'now', performance = 'performance',
@@ -36,7 +37,7 @@
         throw new TypeError(this + ' is not an object');
       }
     
-      var arraylike = this instanceof String ? this.split('') : this,
+      var arraylike = this instanceof String ? this[split]('') : this,
         lengthValue = Math.max(Math.min(arraylike[length], 9007199254740991), 0) || 0,
         index = Number(arguments[1]) || 0;
     
@@ -187,8 +188,8 @@
   // Element.prototype.classList by thednp
   if( !(classList in ELEMENT[prototype]) ) {
     var ClassLIST = function(elem){
-      var classArr = elem[className].replace(/^\s+|\s+$/g,'').split(/\s+/) || [];
-
+      var classArr = (elem[getATTRIBUTE](CLASS)||'').replace(/^\s+|\s+$/g,'')[split](/\s+/) || [];
+          
           // methods
           hasClass = this[contains] = function(classNAME){
             return classArr[indexOf](classNAME) > -1;
@@ -196,13 +197,13 @@
           addClass = this[add] = function(classNAME){
             if (!hasClass(classNAME)) {
               classArr.push(classNAME);
-              elem[className] = classArr.join(' ');
+              elem[setATTRIBUTE](CLASS, classArr.join(' '));
             }
           },
           removeClass = this[remove] = function(classNAME){
             if (hasClass(classNAME)) {
               classArr.splice(classArr[indexOf](classNAME),1);
-              elem[className] = classArr.join(' '); 
+              elem[setATTRIBUTE](CLASS, classArr.join(' '));
             }
           },
           toggleClass = this.toggle = function(classNAME){
