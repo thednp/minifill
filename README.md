@@ -1,6 +1,9 @@
 # minifill.js - the 5k polyfill (2.1k gzipped)
 Ever wondered how to fix old browsers, improve scripting execution performance, simplify scripting and improve overall code quality all without using jQuery? The answer is polyfills.
 
+[![jsDeliver](https://data.jsdelivr.com/v1/package/npm/minifill/badge)](https://www.jsdelivr.com/package/npm/minifill)
+[![CDNJS](https://img.shields.io/cdnjs/v/minifill.svg?style=flat-square)](https://cdnjs.com/libraries/minifill)
+
 The polyfills come from various sources to which I give full credits:
 * [Financial Times](https://polyfill.io/) polyfill service
 * Remy Sharp (the one who came with the name of `polyfill`)
