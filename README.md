@@ -45,7 +45,8 @@ TIP: My other libries such as [bootstrap.native](https://github.com/thednp/boots
 
 ## Examples
 <b>Class Manipulation</b>
-```
+
+```javascript
 // check for a class
 var docHasClass = myElement.classList.contains('someClass'); // return true|false
 
@@ -60,7 +61,8 @@ myElement.classList.toggle('someClass');
 ```
 
 <b>String / Array checks</b>
-```
+
+```javascript
 // indexOf
 string.indexOf('looking for this'); // returns the index of 'looking for this' within the string OR -1 if not found
 // or
@@ -68,21 +70,24 @@ array.indexOf(myElement); // returns the index of an element within the array OR
 ```
 
 <b>Get current computed style for an element</b>
-```
+
+```javascript
 // getComputedStyle
 var elStyle = window.getComputedStyle(myElement); // returns the current computed style for myElement
 var width = elStyle.width; // returns the current computed width
 ```
 
 <b>Get the exact current time</b>
-```
+
+```javascript
 // window.performance.now
 var timeNow = window.performance.now(); // returns a number with the exact current time
 ```
 
 <b>Create Native Events</b><br>
 Instead of writing
-```
+
+```javascript
 // typical triggering events these days
 if ( 'createEventObject' in document ) {
 	myChangeEvent = document.createEventObject();		
@@ -95,26 +100,30 @@ if ( 'createEventObject' in document ) {
 }
 ```
 you can simply write
-```
+
+```javascript
 // Event
 var myChangeEvent = new Event('change'); // creates 'change' Event Element / Object (legacy browsers)
 ```
 to do it all for you.
 
 <b>Create Custom Events</b>
-```
+
+```javascript
 // CustomEvent
 var myCustomEvent = new CustomEvent('my.custom.event.name'); // creates 'my.custom.event.name' CustomEvent Element / Object (legacy browsers)
 ```
 
 <b>Triggering/Dispatching Events</b>
-```
+
+```javascript
 myElement.dispatchEvent(myChangeEvent); // dispatches the native 'change' event for myElement, defined above
 myElement.dispatchEvent(myCustomEvent); // dispatches a CustomEvent event for myElement, defined above
 ```
 
 <b>Adding Event Handlers</b>
-```
+
+```javascript
 // addEventListener
 window.addEventListener('scroll',handler,false); // adds a new handler to the window `scroll` event
 // OR
@@ -122,13 +131,21 @@ myButton.addEventListener('click',handler,false); // adds a 'click' (or any othe
 ```
 
 <b>Removing Event Handlers</b>
-```
+
+```javascript
 // removeEventListener
 window.removeEventListener('scroll',handler,false); // removes a handler bound to the window `scroll` event
 // OR
 myButton.removeEventListener('click',handler,false); // removes a handler bound to 'click' (or any other supported/custom event) handler for any HTML element
 ```
-NOTE: if the `removeEventListener` call is not in the same context with `addEventListener`, it will produce no effect.
+NOTE: if the `removeEventListener` call is not in the same context with `addEventListener`, it will produce no effect. If you would like to autoremove a handler, you would need to write your code like this:
+
+```javascript
+window.addEventListener('scroll', function handlerWrapper(){
+  handler();
+  window.removeEventListener('scroll',handler,false);
+},false);
+```
 
 ## License
 minifill.js is licensed under MIT License.
