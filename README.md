@@ -33,7 +33,7 @@ TIP: My other libries such as [bootstrap.native](https://github.com/thednp/boots
 * Download or copy link from <a href="https://www.jsdelivr.com/projects/minifill">jsdelivr</a> or <a href="https://cdnjs.com/libraries/minifill">cdnjs</a>
 * Add one of the following to your head tag
 
-```markup
+```html
 <!-- if you wanna use it locally -->
 <script type="text/javascript" src="../assets/js/minifill.min.js"></script>
 
@@ -142,9 +142,9 @@ myButton.removeEventListener('click',handler,false); // removes a handler bound 
 NOTE: if the `removeEventListener` call is not in the same context with `addEventListener`, it will produce no effect. If you would like to autoremove a handler, you would need to write your code like this:
 
 ```javascript
-window.addEventListener('scroll', function handlerWrapper(){
-  handler();
-  window.removeEventListener('scroll',handler,false);
+window.addEventListener('scroll', function handlerWrapper(e){
+  handler(e);
+  window.removeEventListener('scroll', handlerWrapper, false);
 },false);
 ```
 
