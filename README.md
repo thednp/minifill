@@ -32,7 +32,8 @@ TIP: My other libries such as [bootstrap.native](https://github.com/thednp/boots
 ## How to use minifill.js
 * Download or copy link from <a href="https://www.jsdelivr.com/projects/minifill">jsdelivr</a> or <a href="https://cdnjs.com/libraries/minifill">cdnjs</a>
 * Add one of the following to your head tag
-```
+
+```markup
 <!-- if you wanna use it locally -->
 <script type="text/javascript" src="../assets/js/minifill.min.js"></script>
 
