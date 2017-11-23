@@ -124,7 +124,7 @@
         } else if (property == 'height') {
           style[property] = element.offsetHeight + 'px';
         } else if (property == 'styleFloat') {
-          style.float = currentStyleValue[property];
+          style[property] = currentStyleValue[property];
         } else if (/margin.|padding.|border.+W/.test(property) && style[property] != 'auto') {
           style[property] = Math.round(getComputedStylePixel(element, property, fontSizeValue)) + 'px';
         } else if (/^outline/.test(property)) {
