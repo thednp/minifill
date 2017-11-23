@@ -12,7 +12,7 @@
     CLASS = 'class', setATTRIBUTE = 'setAttribute', getATTRIBUTE = 'getAttribute',
     
     // object | array related
-    prototype = 'prototype', indexOf = 'indexOf', length = 'length', split = 'split',
+    prototype = 'prototype', indexOf = 'indexOf', length = 'length', split = 'split', trim = 'trim',
 
     // performance
     now = 'now', performance = 'performance',
@@ -185,6 +185,12 @@
     };
   }  
 
+  if (!String[prototype][trim]) {
+    String[prototype][trim] = function () {
+      return this.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, '');
+    };
+  }
+  
   // Element.prototype.classList by thednp
   if( !(classList in ELEMENT[prototype]) ) {
     var ClassLIST = function(elem){
