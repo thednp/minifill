@@ -9,7 +9,7 @@ The polyfills come from various sources to which I give full credits:
 * Remy Sharp (the one who came with the name of `polyfill`)
 * Mozilla Developer Network
 
-TIP: My other libries such as [bootstrap.native](https://github.com/thednp/bootstrap.native) and [KUTE.js](https://github.com/thednp/kute.js) work best with minifill.
+TIP: My other libraries such as [bootstrap.native](https://github.com/thednp/bootstrap.native) and [KUTE.js](https://github.com/thednp/kute.js) work best with minifill.
 
 ## A minimal polyfill with most essential stuff:
 * <b>Document</b> - IE8 doesn't know who is `this.Document`, it's `this.HTMLDocument`
