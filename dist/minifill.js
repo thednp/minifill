@@ -1,5 +1,5 @@
 /*!
-  * minifill.js v0.0.5 (https://thednp.github.io/minifill/)
+  * minifill.js v0.0.7 (https://thednp.github.io/minifill/)
   * Copyright 2015-2020 © thednp
   * Licensed under MIT (https://github.com/thednp/minifill/blob/master/LICENSE)
   */
@@ -445,15 +445,7 @@ if (!window.dispatchEvent||!Window.prototype.dispatchEvent||!Document.prototype.
 }
 
 if (!Element.prototype.matches) {
-  Element.prototype.matches = Element.prototype.webkitMatchesSelector || Element.prototype.oMatchesSelector || Element.prototype.msMatchesSelector || Element.prototype.mozMatchesSelector || function matches(selector) {
-    var element = this;
-    var elements = (element.document || element.ownerDocument).querySelectorAll(selector);
-    var index = 0;
-    while (elements[index] && elements[index] !== element) {
-      ++index;
-    }
-    return !!elements[index];
-  };
+  Element.prototype.matches = Element.prototype.webkitMatchesSelector || Element.prototype.oMatchesSelector || Element.prototype.msMatchesSelector || Element.prototype.mozMatchesSelector;
 }
 
 if( !Element.prototype.classList ) {
