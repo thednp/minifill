@@ -1,0 +1,44 @@
+{
+  "name": "minifill",
+  "version": "0.0.5",
+  "description": "Essential polyfill for the web",
+  "main": "dist/minifill.min.js",
+  "module": "dist/minifill.js",
+  "jsnext": "minifill.js",
+  "files": [
+    "dist/*.{js,map}",
+    "src/*.{js,map}",
+    "minifill.js"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "help": "rollup --help",
+    "build": "npm run build-esm && npm run build-esm-min",
+    "custom": "rollup -c --environment",
+    "build-esm": "rollup --environment FORMAT:esm,MIN:false -c",
+    "build-esm-min": "rollup --environment FORMAT:esm,MIN:true -c",
+    "watch": "rollup --environment FORMAT:esm,MIN:false -c -w"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thednp/minifill.git"
+  },
+  "keywords": [
+    "minifill",
+    "polyfill",
+    "legacy browser"
+  ],
+  "author": "thednp",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/thednp/minifill/issues"
+  },
+  "homepage": "https://thednp.github.io/minifill/",
+  "devDependencies": {
+    "@rollup/plugin-buble": "^0.21.3",
+    "@rollup/plugin-json": "^4.0.3",
+    "rollup": "^1.32.1",
+    "rollup-plugin-cleanup": "^3.1.1",
+    "rollup-plugin-terser": "^5.3.0"
+  }
+}

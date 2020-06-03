@@ -1,4 +1,4 @@
-# minifill.js - the 5k polyfill (2.1k gzipped)
+# minifill.js - the essenial polyfill
 Ever wondered how to fix old browsers, improve scripting execution performance, simplify scripting and improve overall code quality all without using jQuery? The answer is polyfills.
 
 [![jsDeliver](https://data.jsdelivr.com/v1/package/npm/minifill/badge)](https://www.jsdelivr.com/package/npm/minifill)
@@ -9,20 +9,48 @@ The polyfills come from various sources to which I give full credits:
 * Remy Sharp (the one who came with the name of `polyfill`)
 * Mozilla Developer Network
 
+When you use the above service, there is a certain amount of delay involved when executing the polyfill queries, as well as some unexplained in page script execution lags, a case where it's best to just host your own polyfills, and here comes minifill handy.
+
 TIP: My other libraries such as [bootstrap.native](https://github.com/thednp/bootstrap.native) and [KUTE.js](https://github.com/thednp/kute.js) work best with minifill.
 
+
 ## A minimal polyfill with most essential stuff:
-* <b>Document</b> - IE8 doesn't know who is `this.Document`, it's `this.HTMLDocument`
-* <b>Window</b> - older Safari doesn't know who is `this.Window`, it's `this`
-* <b>Element</b> - IE8 doesn't know who is `window.Element`, it's `window.HTMLElement`
-* <b>Element.prototype.classList</b> - class manipulation mostly for IE8 and other HTML4 browsers, inspired by [Remy's](https://github.com/remy/polyfills/blob/master/classList.js) `classList`
-* <b>Array.prototype.indexOf</b> - for string and array checks
-* <b>window.getComputedStyle</b> - returns the true dimensions, spacing, or other supported properties
-* <b>date.now</b> - uses the `new Date().getTime()` synthax to return the current time
-* <b>window.performance.now</b> - uses the above `date.now` in a way to get more accuracy for the current time
-* <b>Event</b> - implements `createEvent` or `createEventObject` to make HTML4 browsers as well as IE8-IE11 work properly with today's standard `Event`
-* <b>Event.prototype</b> - `addEventListener`, `removeEventListener`, `dispatchEvent` for old / 'out of standard' browsers
-* <b>CustomEvent</b> - makes use of the above `new Event()` for stuff like unsupported events types or user defined events like `my.custom.event`, this also works with IE8-IE11
+
+* **this.Document** - IE8 doesn't know who is `this.Document`, it's `this.HTMLDocument`
+* **this.HTMLElement** - IE8 doesn't know who is `window.Element`, it's `window.HTMLElement`
+* **this.Window** - older Safari doesn't know who is `this.Window`, it's `this`
+
+* **Object.defineProperty** - important for the below `classList`
+* **Object.keys** - returns an array populated with the object's keys
+
+* **Array.from** - creates a new, shallow-copied `Array` instance from an array-like or iterable object, usually `NodeList`, `HTMLCollection`
+* **Array.prototype.every** - tests whether all elements in the array pass the test implemented by the provided function
+* **Array.prototype.find** - returns the value of the first element in the provided array that satisfies the provided testing function
+* **Array.prototype.forEach** - executes a provided function once for each array element. 
+* **Array.prototype.includes** - determines whether an array includes a certain value among its entries
+* **Array.prototype.map** - *creates a new array* populated with the results of calling a provided function on every element in the calling array
+* **Array.prototype.some** - tests whether at least one element in the array passes the test implemented by the provided function
+
+* **Multi.prototype.indexOf** - checks inside strings and arrays for particular values 
+* **Multi.addEventListener** - uses the deprecated `attachEvent` API to help legacy browsers
+* **Multi.getElementsByClassName** - a `querySelectorAll` based polyfill for `document`/`Element`
+* **Multi.Event** - the complete polyfill, implements `createEvent` or `createEventObject` to make HTML4 browsers as well as IE8-IE11 work properly with today's standard `Event`
+* **Multi.CustomEvent** - the complete polyfill, makes use of the above `new Event()` for stuff like unsupported events types or user defined events like `my.custom.event`, this also works with IE8-IE11
+* **Multi.dispatchEvent** - uses the deprecated `fireEvent` API on legacy browsers
+
+* **Element.prototype.matches** - the complete `matches` polyfill
+* **Element.prototype.classList** - class manipulation mostly for IE8 and other HTML4 browsers, inspired by [Remy's](https://github.com/remy/polyfills/blob/master/classList.js) `classList`
+* **Element.prototype.closest** - uses the above `matches` to find the closest parent element that matches the selector
+
+* **Date.now** - required by the below `requestAnimationFrame` and other stuff, uses the `new Date().getTime()` synthax to return the current time
+* **String.prototype.trim** - yeah `trim` eventually
+* **Node.prototype.contains** - checks for parental relation between elements
+* **NodeList.prototype.forEach** - simple `forEach` polyfill, executes a provided function once for each element in a `Nodelist`.
+
+* **window.getComputedStyle** - the complete `getComputedStyle` polyfill, returns the true dimensions, spacing, or other browser supported properties
+* **window.performance.now** - required for KUTE.js and other stuff, when accuracy is required for the current time
+* **window.requestAnimationFrame** - also required for KUTE.js
+
 
 ## What is minifill.js for
 * HTML4 browsers that don't support/recognize these methods/objects

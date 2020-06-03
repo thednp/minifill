@@ -1,10 +1,8 @@
 
-// requestAnimationFrame
 if (!window.requestAnimationFrame) {
 
 	var	lastTime = Date.now();
 	window.requestAnimationFrame = function (callback) {
-		'use strict';
 		if (typeof callback !== 'function') {
 			throw new TypeError(callback + 'is not a function');
 		}
@@ -21,9 +19,9 @@ if (!window.requestAnimationFrame) {
 
 			callback(performance.now());
 		}, delay);
-	};
+	}
 
 	window.cancelAnimationFrame = function (id) {
 		clearTimeout(id);
-	};
+	}
 }
