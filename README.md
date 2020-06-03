@@ -72,6 +72,19 @@ TIP: My other libraries such as [bootstrap.native](https://github.com/thednp/boo
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/minifill/0.0.4/minifill.min.js"></script>
 ```
 
+
+## Custom builds
+You can create your own builds specific to your application bundles, but make sure to keep the same order as for the `minifill.js`.
+* create a new file `/path-to/your-file.js`
+* copy contents of the `minifill.js`
+* edit out the polyfills you don't need
+* run `npm run custom INPUTFILE:path-to/your-file.js,OUTPUTFILE:path-to/your-build.js,FORMAT:esm,MIN:false`
+  **  `INPUTFILE` - allows you to specify the source file path
+  **  `OUTPUTFILE` - allows you to specify the output file path
+  **  `MIN` - when true, it will compress the output
+  **  `FORMAT` - umd|cjs|esm and any format you specify or configure your rollup for
+
+
 ## Examples
 <b>Class Manipulation</b>
 
