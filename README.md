@@ -1,4 +1,4 @@
-# minifill.js - the essenial polyfill
+# minifill.js - the essential polyfill
 Ever wondered how to fix old browsers, improve scripting execution performance, simplify scripting and improve overall code quality all without using jQuery? The answer is polyfills.
 
 [![jsDeliver](https://data.jsdelivr.com/v1/package/npm/minifill/badge)](https://www.jsdelivr.com/package/npm/minifill)
