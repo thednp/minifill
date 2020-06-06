@@ -4,17 +4,15 @@
   * Licensed under MIT (https://github.com/thednp/minifill/blob/master/LICENSE)
   */
  "use strict";
-if (!self.Document){
-  self.Document = self.HTMLDocument;
-}
+if (!self.Document){ self.Document = self.HTMLDocument; }
 
 if (!self.Window) {
-    if (self.constructor) {
-      self.Window = self.constructor;
-    } else {
-      (self.Window = self.constructor = new Function('return function Window() {}')()).prototype = self;
-    }
+  if (self.constructor) {
+    self.Window = self.constructor;
+  } else {
+    (self.Window = self.constructor = new Function('return function Window() {}')()).prototype = self;
   }
+}
 
 if (!window.HTMLElement) { window.HTMLElement = window.Element; }
 
