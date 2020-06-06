@@ -17,8 +17,9 @@ TIP: My other libraries such as [bootstrap.native](https://github.com/thednp/boo
 ## A minimal polyfill with most essential stuff:
 
 * **this.Document** - IE8 doesn't know who is `this.Document`, it's `this.HTMLDocument`
-* **this.HTMLElement** - IE8 doesn't know who is `window.Element`, it's `window.HTMLElement`
 * **this.Window** - older Safari doesn't know who is `this.Window`, it's `this`
+* **window.HTMLElement** - IE8 doesn't know who is `window.Element`, it's `window.HTMLElement`
+* **window.Node** - IE8 doesn't know who is `window.Node`, it's `window.Element`
 
 * **Object.defineProperty** - important for the below `classList`
 * **Object.keys** - returns an array populated with the object's keys
