@@ -1,10 +1,10 @@
 
-(function(){ 
-	if (!this.Window) {
-		if (this.constructor) {
-			this.Window = this.constructor;
-		} else {
-			(this.Window = this.constructor = new Function('return function Window() {}')()).prototype = this;
-		}
-	}
-}())
+// (function(){ 
+  if (!self.Window) {
+    if (self.constructor) {
+      self.Window = self.constructor;
+    } else {
+      (self.Window = self.constructor = new Function('return function Window() {}')()).prototype = self;
+    }
+  }
+// }())

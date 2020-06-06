@@ -1,8 +1,8 @@
 "use strict";
 import './src/this.Document.js'
-import './src/this.HTMLElement.js'
 import './src/this.Window.js'
-import './src/this.Node.js'
+import './src/window.HTMLElement.js'
+import './src/window.Node.js'
 
 import './src/Object.defineProperty.js'
 import './src/Object.keys.js'

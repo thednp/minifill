@@ -1,68 +1,66 @@
-// if (!Object.defineProperty) {
-  (function (nativeDefineProperty) {
+(function (nativeDefineProperty) {
 
-    var  
-        supportsAccessors = Object.prototype.hasOwnProperty.call(Object.prototype, '__defineGetter__'),
-        ERR_ACCESSORS_NOT_SUPPORTED = 'Getters & setters cannot be defined on this javascript engine',
-        ERR_VALUE_ACCESSORS = 'A property cannot both have accessors and be writable or have a value';
-  
-    // Polyfill.io - This does not use CreateMethodProperty because our CreateMethodProperty function uses Object.defineProperty.
-    Object.defineProperty = function defineProperty(object, property, descriptor) {
-  
-      // Where native support exists, assume it
-      if (nativeDefineProperty && (object === window || object === document || object === Element.prototype || object instanceof Element)) {
-        return nativeDefineProperty(object, property, descriptor);
+  var  
+      supportsAccessors = Object.prototype.hasOwnProperty.call(Object.prototype, '__defineGetter__'),
+      ERR_ACCESSORS_NOT_SUPPORTED = 'Getters & setters cannot be defined on this javascript engine',
+      ERR_VALUE_ACCESSORS = 'A property cannot both have accessors and be writable or have a value';
+
+  // Polyfill.io - This does not use CreateMethodProperty because our CreateMethodProperty function uses Object.defineProperty.
+  Object.defineProperty = function defineProperty(object, property, descriptor) {
+
+    // Where native support exists, assume it
+    if (nativeDefineProperty && (object === window || object === document || object === Element.prototype || object instanceof Element)) {
+      return nativeDefineProperty(object, property, descriptor);
+    }
+
+    if (object === null || !(object instanceof Object || typeof object === 'object')) {
+      throw new TypeError('Object.defineProperty called on non-object');
+    }
+
+    if (!(descriptor instanceof Object)) {
+      throw new TypeError('Property description must be an object');
+    }
+
+    var propertyString = String(property);
+    var hasValueOrWritable = 'value' in descriptor || 'writable' in descriptor;
+    var getterType = 'get' in descriptor && typeof descriptor.get;
+    var setterType = 'set' in descriptor && typeof descriptor.set;
+
+    // handle descriptor.get
+    if (getterType) {
+      if (getterType !== 'function') {
+        throw new TypeError('Getter must be a function');
       }
-  
-      if (object === null || !(object instanceof Object || typeof object === 'object')) {
-        throw new TypeError('Object.defineProperty called on non-object');
+      if (!supportsAccessors) {
+        throw new TypeError(ERR_ACCESSORS_NOT_SUPPORTED);
       }
-  
-      if (!(descriptor instanceof Object)) {
-        throw new TypeError('Property description must be an object');
+      if (hasValueOrWritable) {
+        throw new TypeError(ERR_VALUE_ACCESSORS);
       }
-  
-      var propertyString = String(property);
-      var hasValueOrWritable = 'value' in descriptor || 'writable' in descriptor;
-      var getterType = 'get' in descriptor && typeof descriptor.get;
-      var setterType = 'set' in descriptor && typeof descriptor.set;
-  
-      // handle descriptor.get
-      if (getterType) {
-        if (getterType !== 'function') {
-          throw new TypeError('Getter must be a function');
-        }
-        if (!supportsAccessors) {
-          throw new TypeError(ERR_ACCESSORS_NOT_SUPPORTED);
-        }
-        if (hasValueOrWritable) {
-          throw new TypeError(ERR_VALUE_ACCESSORS);
-        }
-        Object.__defineGetter__.call(object, propertyString, descriptor.get);
-      } else {
-        object[propertyString] = descriptor.value;
+      Object.__defineGetter__.call(object, propertyString, descriptor.get);
+    } else {
+      object[propertyString] = descriptor.value;
+    }
+
+    // handle descriptor.set
+    if (setterType) {
+      if (setterType !== 'function') {
+        throw new TypeError('Setter must be a function');
       }
-  
-      // handle descriptor.set
-      if (setterType) {
-        if (setterType !== 'function') {
-          throw new TypeError('Setter must be a function');
-        }
-        if (!supportsAccessors) {
-          throw new TypeError(ERR_ACCESSORS_NOT_SUPPORTED);
-        }
-        if (hasValueOrWritable) {
-          throw new TypeError(ERR_VALUE_ACCESSORS);
-        }
-        Object.__defineSetter__.call(object, propertyString, descriptor.set);
+      if (!supportsAccessors) {
+        throw new TypeError(ERR_ACCESSORS_NOT_SUPPORTED);
       }
-  
-      // OK to define value unconditionally - if a getter has been specified as well, an error would be thrown above
-      if ('value' in descriptor) {
-        object[propertyString] = descriptor.value;
+      if (hasValueOrWritable) {
+        throw new TypeError(ERR_VALUE_ACCESSORS);
       }
-  
-      return object;
-    };
-  }(Object.defineProperty));
-// }
+      Object.__defineSetter__.call(object, propertyString, descriptor.set);
+    }
+
+    // OK to define value unconditionally - if a getter has been specified as well, an error would be thrown above
+    if ('value' in descriptor) {
+      object[propertyString] = descriptor.value;
+    }
+
+    return object;
+  };
+}(Object.defineProperty));

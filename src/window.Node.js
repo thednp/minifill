@@ -1,4 +1,4 @@
 // Element
-(function(){
+// (function(){
   if (!window.Node) { window.Node = window.Element; }
-}())
+// }())

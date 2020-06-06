@@ -1,84 +1,76 @@
 /*!
-  * minifill.js v0.0.7 (https://thednp.github.io/minifill/)
+  * minifill.js v0.0.8 (https://thednp.github.io/minifill/)
   * Copyright 2015-2020 © thednp
   * Licensed under MIT (https://github.com/thednp/minifill/blob/master/LICENSE)
   */
  "use strict";
-(function(){
-  if (!this.Document){
-    this.Document = this.HTMLDocument;
+if (!self.Document){
+  self.Document = self.HTMLDocument;
+}
+
+if (!self.Window) {
+    if (self.constructor) {
+      self.Window = self.constructor;
+    } else {
+      (self.Window = self.constructor = new Function('return function Window() {}')()).prototype = self;
+    }
   }
-}());
 
-(function(){
-  if (!window.HTMLElement) { window.HTMLElement = window.Element; }
-}());
+if (!window.HTMLElement) { window.HTMLElement = window.Element; }
 
-(function(){
-	if (!this.Window) {
-		if (this.constructor) {
-			this.Window = this.constructor;
-		} else {
-			(this.Window = this.constructor = new Function('return function Window() {}')()).prototype = this;
-		}
-	}
-}());
-
-(function(){
-  if (!window.Node) { window.Node = window.Element; }
-}());
+if (!window.Node) { window.Node = window.Element; }
 
 (function (nativeDefineProperty) {
-    var
-        supportsAccessors = Object.prototype.hasOwnProperty.call(Object.prototype, '__defineGetter__'),
-        ERR_ACCESSORS_NOT_SUPPORTED = 'Getters & setters cannot be defined on this javascript engine',
-        ERR_VALUE_ACCESSORS = 'A property cannot both have accessors and be writable or have a value';
-    Object.defineProperty = function defineProperty(object, property, descriptor) {
-      if (nativeDefineProperty && (object === window || object === document || object === Element.prototype || object instanceof Element)) {
-        return nativeDefineProperty(object, property, descriptor);
+  var
+      supportsAccessors = Object.prototype.hasOwnProperty.call(Object.prototype, '__defineGetter__'),
+      ERR_ACCESSORS_NOT_SUPPORTED = 'Getters & setters cannot be defined on this javascript engine',
+      ERR_VALUE_ACCESSORS = 'A property cannot both have accessors and be writable or have a value';
+  Object.defineProperty = function defineProperty(object, property, descriptor) {
+    if (nativeDefineProperty && (object === window || object === document || object === Element.prototype || object instanceof Element)) {
+      return nativeDefineProperty(object, property, descriptor);
+    }
+    if (object === null || !(object instanceof Object || typeof object === 'object')) {
+      throw new TypeError('Object.defineProperty called on non-object');
+    }
+    if (!(descriptor instanceof Object)) {
+      throw new TypeError('Property description must be an object');
+    }
+    var propertyString = String(property);
+    var hasValueOrWritable = 'value' in descriptor || 'writable' in descriptor;
+    var getterType = 'get' in descriptor && typeof descriptor.get;
+    var setterType = 'set' in descriptor && typeof descriptor.set;
+    if (getterType) {
+      if (getterType !== 'function') {
+        throw new TypeError('Getter must be a function');
       }
-      if (object === null || !(object instanceof Object || typeof object === 'object')) {
-        throw new TypeError('Object.defineProperty called on non-object');
+      if (!supportsAccessors) {
+        throw new TypeError(ERR_ACCESSORS_NOT_SUPPORTED);
       }
-      if (!(descriptor instanceof Object)) {
-        throw new TypeError('Property description must be an object');
+      if (hasValueOrWritable) {
+        throw new TypeError(ERR_VALUE_ACCESSORS);
       }
-      var propertyString = String(property);
-      var hasValueOrWritable = 'value' in descriptor || 'writable' in descriptor;
-      var getterType = 'get' in descriptor && typeof descriptor.get;
-      var setterType = 'set' in descriptor && typeof descriptor.set;
-      if (getterType) {
-        if (getterType !== 'function') {
-          throw new TypeError('Getter must be a function');
-        }
-        if (!supportsAccessors) {
-          throw new TypeError(ERR_ACCESSORS_NOT_SUPPORTED);
-        }
-        if (hasValueOrWritable) {
-          throw new TypeError(ERR_VALUE_ACCESSORS);
-        }
-        Object.__defineGetter__.call(object, propertyString, descriptor.get);
-      } else {
-        object[propertyString] = descriptor.value;
+      Object.__defineGetter__.call(object, propertyString, descriptor.get);
+    } else {
+      object[propertyString] = descriptor.value;
+    }
+    if (setterType) {
+      if (setterType !== 'function') {
+        throw new TypeError('Setter must be a function');
       }
-      if (setterType) {
-        if (setterType !== 'function') {
-          throw new TypeError('Setter must be a function');
-        }
-        if (!supportsAccessors) {
-          throw new TypeError(ERR_ACCESSORS_NOT_SUPPORTED);
-        }
-        if (hasValueOrWritable) {
-          throw new TypeError(ERR_VALUE_ACCESSORS);
-        }
-        Object.__defineSetter__.call(object, propertyString, descriptor.set);
+      if (!supportsAccessors) {
+        throw new TypeError(ERR_ACCESSORS_NOT_SUPPORTED);
       }
-      if ('value' in descriptor) {
-        object[propertyString] = descriptor.value;
+      if (hasValueOrWritable) {
+        throw new TypeError(ERR_VALUE_ACCESSORS);
       }
-      return object;
-    };
-  }(Object.defineProperty));
+      Object.__defineSetter__.call(object, propertyString, descriptor.set);
+    }
+    if ('value' in descriptor) {
+      object[propertyString] = descriptor.value;
+    }
+    return object;
+  };
+}(Object.defineProperty));
 
 if (!Object.keys) {
   Object.keys = function(obj) {
@@ -449,33 +441,33 @@ if (!Element.prototype.matches) {
 }
 
 if( !Element.prototype.classList ) {
-	var ClassLIST = function(elem){
-		var classArr = (elem.getAttribute('class')||'').replace(/^\s+|\s+$/g,'').split(/\s+/) || [];
-		hasClass = this.contains = function(classNAME){
-			return classArr.indexOf(classNAME) > -1;
-		},
-		addClass = this.add = function(classNAME){
-			if (!hasClass(classNAME)) {
-				classArr.push(classNAME);
-				elem.setAttribute('class', classArr.join(' '));
-			}
-		},
-		removeClass = this.remove = function(classNAME){
-			if (hasClass(classNAME)) {
-				classArr.splice(classArr.indexOf(classNAME),1);
-				elem.setAttribute('class', classArr.join(' '));
-			}
-		},
-		toggleClass = this.toggle = function(classNAME){
-			if ( hasClass(classNAME) ) { removeClass(classNAME); }
-			else { addClass(classNAME); }
-		};
-	};
-	Object.defineProperty(Element.prototype, 'classList', {
-		get: function () {
-			return new ClassLIST(this)
-		}
-	});
+  var ClassLIST = function(elem){
+    var classArr = (elem.getAttribute('class')||'').trim().split(/\s+/) || [];
+    this.contains = function(classNAME){
+      return classArr.indexOf(classNAME) > -1;
+    };
+    this.add = function(classNAME){
+      if (!this.contains(classNAME)) {
+        classArr.push(classNAME);
+        elem.setAttribute('class', classArr.join(' '));
+      }
+    };
+    this.remove = function(classNAME){
+      if (this.contains(classNAME)) {
+        classArr.splice(classArr.indexOf(classNAME),1);
+        elem.setAttribute('class', classArr.join(' '));
+      }
+    };
+    this.toggle = function(classNAME){
+      if ( this.contains(classNAME) ) { this.remove(classNAME); }
+      else { this.add(classNAME); }
+    };
+  };
+  Object.defineProperty(Element.prototype, 'classList', {
+    get: function () {
+      return new ClassLIST(this)
+    }
+  });
 }
 
 if (!Element.prototype.closest) {
@@ -546,10 +538,10 @@ if (!window.getComputedStyle) {
         r = property + 'Right' + borderSuffix,
         b = property + 'Bottom' + borderSuffix,
         l = property + 'Left' + borderSuffix;
-      style[property] = (style[t] == style[r] && style[t] == style[b] && style[t] == style[l] ? [ style[t] ] :
-              style[t] == style[b] && style[l] == style[r] ? [ style[t], style[r] ] :
-              style[l] == style[r] ? [ style[t], style[r], style[b] ] :
-              [ style[t], style[r], style[b], style[l] ]).join(' ');
+      style[property] = (style[t] == style[r] && style[t] == style[b] && style[t] == style[l] ? [ style[t] ]
+                      : style[t] == style[b] && style[l] == style[r] ? [ style[t], style[r] ]
+                      : style[l] == style[r] ? [ style[t], style[r], style[b] ]
+                      : [ style[t], style[r], style[b], style[l] ]).join(' ');
     }
     function CSSStyleDeclaration(element) {
       var style = this,
@@ -627,21 +619,21 @@ if ( !window.performance.now ){
 }
 
 if (!window.requestAnimationFrame) {
-	var	lastTime = Date.now();
-	window.requestAnimationFrame = function (callback) {
-		if (typeof callback !== 'function') {
-			throw new TypeError(callback + 'is not a function');
-		}
-		var	currentTime = Date.now(),
-			delay = 16 + lastTime - currentTime;
-		if (delay < 0) { delay = 0;	}
-		lastTime = currentTime;
-		return setTimeout(function () {
-			lastTime = Date.now();
-			callback(performance.now());
-		}, delay);
-	};
-	window.cancelAnimationFrame = function (id) {
-		clearTimeout(id);
-	};
+  var	lastTime = Date.now();
+  window.requestAnimationFrame = function (callback) {
+    if (typeof callback !== 'function') {
+      throw new TypeError(callback + 'is not a function');
+    }
+    var	currentTime = Date.now(),
+      delay = 16 + lastTime - currentTime;
+    if (delay < 0) { delay = 0;	}
+    lastTime = currentTime;
+    return setTimeout(function () {
+      lastTime = Date.now();
+      callback(performance.now());
+    }, delay);
+  };
+  window.cancelAnimationFrame = function (id) {
+    clearTimeout(id);
+  };
 }
