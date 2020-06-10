@@ -1,4 +1,3 @@
-"use strict";
 import './src/this.Document.js'
 import './src/this.Window.js'
 import './src/window.HTMLElement.js'
@@ -26,8 +25,10 @@ import './src/Element.prototype.matches.js'
 import './src/Element.prototype.classList.js'
 import './src/Element.prototype.closest.js'
 
-import './src/Date.now.js'
+import './src/String.prototype.includes.js'
 import './src/String.prototype.trim.js'
+
+import './src/Date.now.js'
 import './src/Node.prototype.contains.js'
 import './src/NodeList.prototype.forEach.js'
 

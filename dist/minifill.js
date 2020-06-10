@@ -479,15 +479,25 @@ if (!Element.prototype.closest) {
   };
 }
 
-if(!Date.now){
-  Date.now = function now() {
-    return new Date().getTime();
+if (!String.prototype.includes) {
+  String.prototype.includes = function(search, start) {
+    if (search instanceof RegExp) {
+      throw TypeError('first argument must not be a RegExp');
+    }
+    if (start === undefined) { start = 0; }
+    return this.indexOf(search, start) !== -1;
   };
 }
 
 if (!String.prototype.trim) {
   String.prototype.trim = function () {
     return this.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, '');
+  };
+}
+
+if(!Date.now){
+  Date.now = function now() {
+    return new Date().getTime();
   };
 }
 

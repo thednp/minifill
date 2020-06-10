@@ -44,6 +44,7 @@ TIP: My other libraries such as [bootstrap.native](https://github.com/thednp/boo
 * **Element.prototype.closest** - uses the above `matches` to find the closest parent element that matches the selector
 
 * **Date.now** - required by the below `requestAnimationFrame` and other stuff, uses the `new Date().getTime()` synthax to return the current time
+* **String.prototype.includes** - a quick fill by MDN
 * **String.prototype.trim** - yeah `trim` eventually
 * **Node.prototype.contains** - checks for parental relation between elements
 * **NodeList.prototype.forEach** - simple `forEach` polyfill, executes a provided function once for each element in a `Nodelist`.
