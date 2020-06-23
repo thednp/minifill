@@ -1,5 +1,5 @@
 /*!
-  * minifill.js v0.0.12 (https://thednp.github.io/minifill/)
+  * minifill.js v0.0.13 (https://thednp.github.io/minifill/)
   * Copyright 2015-2020 © thednp
   * Licensed under MIT (https://github.com/thednp/minifill/blob/master/LICENSE)
   */
@@ -511,7 +511,7 @@ if (!Element.prototype.matches) {
   Element.prototype.matches = Element.prototype.webkitMatchesSelector || Element.prototype.oMatchesSelector || Element.prototype.msMatchesSelector || Element.prototype.mozMatchesSelector;
 }
 
-if( !Element.prototype.classList ) {
+if( !('classList' in Element.prototype) ) {
   var ClassLIST = function(elem){
     var classArr = (elem.getAttribute('class')||'').trim().split(/\s+/) || [];
     this.contains = function(classNAME){
@@ -693,17 +693,10 @@ if ( !self.performance ) {
   self.performance = {};
 }
 if ( !self.performance.now ){
-  if (typeof (self) === 'undefined' && typeof (process) !== 'undefined' && process.hrtime) {
-    self.performance.now = function now() {
-      var time = process.hrtime();
-      return time[0] * 1000 + time[1] / 1000000;
-    };
-  } else {
-    var nowOffset = Date.now();
-    self.performance.now = function now(){
-      return Date.now() - nowOffset;
-    };
-  }
+  var nowOffset = Date.now();
+  self.performance.now = function now(){
+    return Date.now() - nowOffset;
+  };
 }
 
 if (!window.requestAnimationFrame) {
