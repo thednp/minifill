@@ -1,5 +1,5 @@
 /*!
-  * minifill.js v0.0.8 (https://thednp.github.io/minifill/)
+  * minifill.js v0.0.12 (https://thednp.github.io/minifill/)
   * Copyright 2015-2020 © thednp
   * Licensed under MIT (https://github.com/thednp/minifill/blob/master/LICENSE)
   */
@@ -70,6 +70,44 @@ if (!window.Node) { window.Node = window.Element; }
   };
 }(Object.defineProperty));
 
+if (typeof Object.assign !== 'function') {
+  Object.defineProperty(Object, "assign", {
+    value: function assign(target, varArgs) {
+      var arguments$1 = arguments;
+      if (target === null || target === undefined) {
+        throw new TypeError('Cannot convert undefined or null to object');
+      }
+      var to = Object(target);
+      for (var index = 1; index < arguments.length; index++) {
+        var nextSource = arguments$1[index];
+        if (nextSource !== null && nextSource !== undefined) {
+          for (var nextKey in nextSource) {
+            if (Object.prototype.hasOwnProperty.call(nextSource, nextKey)) {
+              to[nextKey] = nextSource[nextKey];
+            }
+          }
+        }
+      }
+      return to;
+    },
+    writable: true,
+    configurable: true
+  });
+}
+
+if (typeof Object.create !== "function") {
+  Object.create = function (proto, propertiesObject) {
+      if (typeof proto !== 'object' && typeof proto !== 'function') {
+          throw new TypeError('Object prototype may only be an Object: ' + proto);
+      } else if (proto === null || typeof propertiesObject != 'undefined') {
+          throw new Error("This browser's implementation of Object.create is a shim and doesn't support 'null' as the first argument, nor a second argument.");
+      }
+      function F() {}
+      F.prototype = proto;
+      return new F();
+  };
+}
+
 if (!Object.keys) {
   Object.keys = function(obj) {
     var keys = [];
@@ -79,6 +117,23 @@ if (!Object.keys) {
       }
     }
     return keys;
+  };
+}
+
+if (!Function.prototype.bind) {
+  Function.prototype.bind = function() {
+    var slice = Array.prototype.slice,
+        thatFunc = this,
+        thatArg = arguments[0],
+        args = slice.call(arguments, 1);
+    if (typeof thatFunc !== 'function') {
+      throw new TypeError('Function.prototype.bind - ' +
+             'what is trying to be bound is not callable');
+    }
+    return function(){
+      var funcArgs = args.concat(slice.call(arguments));
+      return thatFunc.apply(thatArg, funcArgs);
+    };
   };
 }
 
@@ -225,6 +280,24 @@ if (!Array.prototype.includes) {
       k++;
     }
     return false;
+  };
+}
+
+if (!Array.prototype.indexOf) {
+  Array.prototype.indexOf = function indexOf(searchElement) {
+    if (this === undefined || this === null) {
+      throw new TypeError(this + 'is not an object');
+    }
+    var	arraylike = this instanceof String ? this.split('') : this,
+      length = Math.max(Math.min(arraylike.length, 9007199254740991), 0) || 0,
+      index = Number(arguments[1]) || 0;
+    index = (index < 0 ? Math.max(length + index, 0) : index) - 1;
+    while (++index < length) {
+      if (index in arraylike && arraylike[index] === searchElement) {
+        return index;
+      }
+    }
+    return -1;
   };
 }
 
@@ -616,14 +689,21 @@ if (!window.getComputedStyle) {
   })();
 }
 
-if ( !window.performance ) {
-  window.performance = {};
+if ( !self.performance ) {
+  self.performance = {};
 }
-if ( !window.performance.now ){
-  var nowOffset = Date.now();
-  window.performance.now = function now(){
-    return Date.now() - nowOffset;
-  };
+if ( !self.performance.now ){
+  if (typeof (self) === 'undefined' && typeof (process) !== 'undefined' && process.hrtime) {
+    self.performance.now = function now() {
+      var time = process.hrtime();
+      return time[0] * 1000 + time[1] / 1000000;
+    };
+  } else {
+    var nowOffset = Date.now();
+    self.performance.now = function now(){
+      return Date.now() - nowOffset;
+    };
+  }
 }
 
 if (!window.requestAnimationFrame) {

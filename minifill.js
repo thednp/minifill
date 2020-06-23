@@ -4,13 +4,18 @@ import './src/window.HTMLElement.js'
 import './src/window.Node.js'
 
 import './src/Object.defineProperty.js'
+import './src/Object.assign.js'
+import './src/Object.create.js'
 import './src/Object.keys.js'
+
+import './src/Function.prototype.bind.js'
 
 import './src/Array.from.js'
 import './src/Array.prototype.every.js'
 import './src/Array.prototype.find.js'
 import './src/Array.prototype.forEach.js'
 import './src/Array.prototype.includes.js'
+import './src/Array.prototype.indexOf.js'
 import './src/Array.prototype.map.js'
 import './src/Array.prototype.some.js'
 
