@@ -50,7 +50,7 @@ TIP: My other libraries such as [bootstrap.native](https://github.com/thednp/boo
 * **NodeList.prototype.forEach** - simple `forEach` polyfill, executes a provided function once for each element in a `Nodelist`.
 
 * **window.getComputedStyle** - the complete `getComputedStyle` polyfill, returns the true dimensions, spacing, or other browser supported properties
-* **window.performance.now** - required for KUTE.js and other stuff, when accuracy is required for the current time; this polyfill "should" also work with other Node.js apps
+* **window.performance.now** - required for KUTE.js and other stuff, when accuracy is required for the current time
 * **window.requestAnimationFrame** - also required for KUTE.js
 
 
