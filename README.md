@@ -28,6 +28,7 @@ TIP: My other libraries such as [bootstrap.native](https://github.com/thednp/boo
 * **Array.prototype.every** - tests whether all elements in the array pass the test implemented by the provided function
 * **Array.prototype.find** - returns the value of the first element in the provided array that satisfies the provided testing function
 * **Array.prototype.forEach** - executes a provided function once for each array element. 
+* **Array.prototype.flat** - creates a new array with all sub-array elements concatenated into it recursively up to the specified depth.
 * **Array.prototype.includes** - determines whether an array includes a certain value among its entries
 * **Array.prototype.map** - *creates a new array* populated with the results of calling a provided function on every element in the calling array
 * **Array.prototype.some** - tests whether at least one element in the array passes the test implemented by the provided function
