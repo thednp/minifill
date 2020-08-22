@@ -1,5 +1,5 @@
 /*!
-  * minifill.js v0.0.13 (https://thednp.github.io/minifill/)
+  * minifill.js v0.0.14 (https://thednp.github.io/minifill/)
   * Copyright 2015-2020 © thednp
   * Licensed under MIT (https://github.com/thednp/minifill/blob/master/LICENSE)
   */
@@ -253,6 +253,24 @@ if (!Array.prototype.forEach) {
       callback.call(thisArg, this[i], i, this);
     }
   };
+}
+
+if (!Array.prototype.flat) {
+	Object.defineProperty(Array.prototype, 'flat', {
+		configurable: true,
+		value: function flat () {
+			var depth = isNaN(arguments[0]) ? 1 : Number(arguments[0]);
+			return depth ? Array.prototype.reduce.call(this, function (acc, cur) {
+				if (Array.isArray(cur)) {
+					acc.push.apply(acc, flat.call(cur, depth - 1));
+				} else {
+					acc.push(cur);
+				}
+				return acc;
+			}, []) : Array.prototype.slice.call(this);
+		},
+		writable: true
+	});
 }
 
 if (!Array.prototype.includes) {
