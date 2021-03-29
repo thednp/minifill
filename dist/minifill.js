@@ -1,5 +1,5 @@
 /*!
-  * minifill.js v0.0.15 (https://thednp.github.io/minifill/)
+  * minifill.js v0.0.16 (https://thednp.github.io/minifill/)
   * Copyright 2015-2021 © thednp
   * Licensed under MIT (https://github.com/thednp/minifill/blob/master/LICENSE)
   */
@@ -537,6 +537,13 @@ if (!Number.isInteger) {
     return typeof value === 'number'
       && isFinite(value)
       && Math.floor(value) === value;
+  };
+}
+
+if (!Number.isNaN) {
+  Number.isNaN = function(value) {
+    return typeof value === 'number'
+      && value !== value;
   };
 }
 

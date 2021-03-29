@@ -29,6 +29,7 @@ import './src/Multi.dispatchEvent.js'
 
 import './src/Number.isFinite.js'
 import './src/Number.isInteger.js'
+import './src/Number.isNaN.js'
 
 import './src/Element.prototype.matches.js'
 import './src/Element.prototype.classList.js'
