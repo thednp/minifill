@@ -1,5 +1,5 @@
 // Element.prototype.classList by Remy Sharp
-// updated by thdnp
+// updated by thednp
 if( !('classList' in Element.prototype) ) {
   var ClassLIST = function(elem){
     var classArr = (elem.getAttribute('class')||'').trim().split(/\s+/) || [];

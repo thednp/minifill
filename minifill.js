@@ -27,6 +27,9 @@ import './src/Multi.Event.js'
 import './src/Multi.CustomEvent.js'
 import './src/Multi.dispatchEvent.js'
 
+import './src/Number.isFinite.js'
+import './src/Number.isInteger.js'
+
 import './src/Element.prototype.matches.js'
 import './src/Element.prototype.classList.js'
 import './src/Element.prototype.closest.js'

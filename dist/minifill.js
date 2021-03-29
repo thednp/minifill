@@ -1,6 +1,6 @@
 /*!
-  * minifill.js v0.0.14 (https://thednp.github.io/minifill/)
-  * Copyright 2015-2020 © thednp
+  * minifill.js v0.0.15 (https://thednp.github.io/minifill/)
+  * Copyright 2015-2021 © thednp
   * Licensed under MIT (https://github.com/thednp/minifill/blob/master/LICENSE)
   */
  "use strict";
@@ -522,6 +522,21 @@ if (!window.dispatchEvent||!Window.prototype.dispatchEvent||!Document.prototype.
       } while (element && !event.cancelBubble);
     }
     return true;
+  };
+}
+
+if (!Number.isFinite) {
+  Number.isFinite = function(value) {
+    return typeof value === 'number'
+      && isFinite(value);
+  };
+}
+
+if (!Number.isInteger) {
+  Number.isInteger = function(value) {
+    return typeof value === 'number'
+      && isFinite(value)
+      && Math.floor(value) === value;
   };
 }
 

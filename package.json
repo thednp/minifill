@@ -1,6 +1,6 @@
 {
   "name": "minifill",
-  "version": "0.0.14",
+  "version": "0.0.15",
   "description": "Essential polyfill for the web",
   "main": "dist/minifill.min.js",
   "module": "dist/minifill.js",
