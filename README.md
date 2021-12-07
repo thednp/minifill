@@ -66,13 +66,13 @@ TIP: My other libraries such as [bootstrap.native](https://github.com/thednp/boo
 
 ```html
 <!-- if you wanna use it locally -->
-<script type="text/javascript" src="../assets/js/minifill.min.js"></script>
+<script nomodule type="text/javascript" src="../assets/js/minifill.min.js"></script>
 
 <!-- if you wanna use JSDELIVR -->
-<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/thednp/minifill@0.0.4/dist/minifill.min.js"></script>
+<script nomodule type="text/javascript" src="https://cdn.jsdelivr.net/gh/thednp/minifill@0.0.4/dist/minifill.min.js"></script>
 
 <!-- if you wanna use CDNJS -->
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/minifill/0.0.4/minifill.min.js"></script>
+<script nomodule type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/minifill/0.0.4/minifill.min.js"></script>
 ```
 
 
