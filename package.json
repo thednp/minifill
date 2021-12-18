@@ -1,6 +1,6 @@
 {
   "name": "minifill",
-  "version": "0.0.16",
+  "version": "0.0.17",
   "description": "Essential polyfill for the web",
   "main": "dist/minifill.min.js",
   "module": "dist/minifill.js",
@@ -38,7 +38,6 @@
     "@rollup/plugin-buble": "^0.21.3",
     "@rollup/plugin-json": "^4.0.3",
     "rollup": "^1.32.1",
-    "rollup-plugin-cleanup": "^3.1.1",
     "rollup-plugin-terser": "^5.3.0"
   }
 }

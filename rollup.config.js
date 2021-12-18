@@ -2,7 +2,6 @@
 import buble from '@rollup/plugin-buble'
 import json from '@rollup/plugin-json'
 import {terser} from 'rollup-plugin-terser'
-import cleanup from 'rollup-plugin-cleanup'
 import * as pkg from "./package.json";
 
 // set headers
@@ -31,7 +30,6 @@ const OUTPUT = {
 const PLUGINS = [
   json(),
   buble(),
-  cleanup()
 ]
 
 if (MIN){
